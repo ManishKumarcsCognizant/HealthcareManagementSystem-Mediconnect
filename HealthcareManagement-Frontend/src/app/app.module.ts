@@ -28,6 +28,8 @@ import { ApprovalstatusComponent } from './components/approvalstatus/approvalsta
 import { CheckslotsComponent } from './components/checkslots/checkslots.component';
 import { AddprescriptionComponent } from './components/addprescription/addprescription.component';
 import { PrescriptionlistComponent } from './components/prescriptionlist/prescriptionlist.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
+import { DocumentVaultComponent } from './components/document-vault/document-vault.component';
 import { WelcomepageComponent } from './components/welcomepage/welcomepage.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -56,6 +58,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CheckslotsComponent,
     AddprescriptionComponent,
     PrescriptionlistComponent,
+    FeedbackComponent,
+    DocumentVaultComponent,
     WelcomepageComponent
   ],
   imports: [
@@ -67,6 +71,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MDBBootstrapModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent, RegistrationComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

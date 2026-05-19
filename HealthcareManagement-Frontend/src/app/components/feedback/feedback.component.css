@@ -48,6 +48,43 @@
 .char-count { text-align:right; font-size:0.85rem; color:#888; margin-top:6px; }
 .submit-btn { background: rgb(13, 53, 80); color:#fff; border-radius:8px; padding:10px 18px; border:none; }
 
+@import url('https://fonts.googleapis.com/css2?family=Aladin&family=Merienda+One&family=Staatliches&display=swap');
+
+.heading
+{
+    font-weight: bolder;
+    color: darkgreen;
+    margin-top: 3%;
+    font-family: 'Aladin';
+    margin-bottom: 2%;
+    margin-left: 41%;
+}
+
+/* reuse registerbtn from prescriptionlist for consistent buttons */
+.registerbtn
+{
+    background-color: transparent;
+    padding-left: 8%;
+    padding-right: 8%;
+    margin: auto;  
+    padding-bottom: 7px;
+    border-radius: 15px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    border: 1px solid black;
+}
+.registerbtn:hover
+{
+    background-color: rgb(23, 78, 78);
+    padding-left: 7%;
+    padding-right: 7%;
+    cursor: pointer;
+    color: white;
+}
+
 @media (max-width:720px) {
   .feedback-card { padding:18px; }
   .feedback-actions { justify-content:center; }

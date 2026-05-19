@@ -1,12 +1,17 @@
-.heading {
-  text-align: center;
-  margin: 18px 0;
-  font-family: 'Aladin', cursive;
-  color: rgb(7, 54, 54);
+@import url('https://fonts.googleapis.com/css2?family=Aladin&family=Merienda+One&family=Staatliches&display=swap');
+
+.heading
+{
+    font-weight: bolder;
+    color: darkgreen;
+    margin-top: 3%;
+    font-family: 'Aladin';
+    margin-bottom: 2%;
+    margin-left: 41%;
 }
 
 .document-vault-container {
-  max-width: 980px;
+  max-width: 820px;
   margin: 0 auto 40px;
   padding: 0 12px;
 }
@@ -17,6 +22,7 @@
   padding: 20px;
   margin-bottom: 18px;
   box-shadow: 5px 5px 35px 8px rgb(147, 158, 147);
+  width: 700px;
 }
 
 .vault-title { color: rgb(7, 54, 54); margin-bottom: 6px; }
@@ -27,6 +33,31 @@
 .file-label { background: rgb(13, 53, 80); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
 .file-name { font-size:0.95rem; color:#333; }
 .upload-btn { background: rgb(13, 53, 80); color:#fff; border-radius:8px; margin-left:8px; }
+
+/* reuse registerbtn from prescriptionlist for consistent buttons */
+.registerbtn
+{
+  background-color: transparent;
+  padding-left: 8%;
+  padding-right: 8%;
+  margin: auto;  
+  padding-bottom: 7px;
+  border-radius: 15px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  border: 1px solid black;
+}
+.registerbtn:hover
+{
+  background-color: rgb(23, 78, 78);
+  padding-left: 7%;
+  padding-right: 7%;
+  cursor: pointer;
+  color: white;
+}
 
 .alert-custom { border-radius:8px; margin-top:12px; }
 
