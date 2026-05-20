@@ -1,1 +1,216 @@
-/* You can add global styles to this file, and also import other style files */
+﻿/* MediConnect Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #1565c0;
+  --primary-light: #1e88e5;
+  --primary-dark: #0d47a1;
+  --secondary: #00897b;
+  --success: #2e7d32;
+  --warning: #f57c00;
+  --danger: #c62828;
+  --bg: #f0f4f8;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  margin: 0; padding: 0; min-height: 100%;
+  font-size: 14px;
+}
+body { padding-top: 60px; }
+
+h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', 'Segoe UI', sans-serif; }
+
+/* ── Page Wrappers ─────────────────────────────────────────── */
+.page-wrapper {
+  min-height: calc(100vh - 60px);
+  padding: 32px 24px 64px;
+  background: var(--bg);
+}
+
+.form-page-wrapper {
+  min-height: calc(100vh - 60px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 32px 16px 64px;
+  background: var(--bg);
+}
+
+/* ── Shared Card ───────────────────────────────────────────── */
+.section-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 36px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Headings ──────────────────────────────────────────────── */
+.dashboard-welcome {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700; color: var(--primary);
+  padding: 24px 0 12px 20px;
+}
+
+.section-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700; color: var(--primary);
+  margin: 0 0 24px 0;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #e8f0fe;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-heading::before {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 22px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Table ─────────────────────────────────────────────────── */
+.table-responsive-wrapper { overflow-x: auto; border-radius: 10px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-family: 'Inter', sans-serif; }
+thead tr { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+thead th { color: #fff; padding: 13px 16px; font-weight: 600; font-size: 13px; letter-spacing: 0.03em; white-space: nowrap; }
+tbody tr { transition: background 0.15s; border-bottom: 1px solid #f0f4f8; }
+tbody tr:nth-child(even) { background: #f8faff; }
+tbody tr:hover { background: #eef3ff; }
+tbody td { padding: 12px 16px; color: var(--text-secondary); vertical-align: middle; }
+
+/* ── Forms ─────────────────────────────────────────────────── */
+.form-control, select.form-control {
+  border: 1.5px solid #d8e2f0 !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  font-size: 14px !important;
+  font-family: 'Inter', sans-serif !important;
+  color: var(--text-primary) !important;
+  background: #fafbff !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+.form-control:focus, select.form-control:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(21,101,192,0.10) !important;
+  outline: none !important;
+  background: #fff !important;
+}
+.form-control.is-invalid { border-color: #e53935 !important; }
+.form-control.field-readonly { background:#f5f5f5; color:#888; cursor:not-allowed; border-color:#e0e0e0; }
+
+label { font-weight: 600; font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; display: block; }
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn.registerbtn, .btn.loginbtn, button.registerbtn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light)) !important;
+  color: #fff !important; border: none !important;
+  padding: 11px 28px !important; border-radius: 8px !important;
+  font-family: 'Poppins', sans-serif !important; font-size: 14px !important; font-weight: 600 !important;
+  cursor: pointer; transition: all 0.2s !important;
+  box-shadow: 0 3px 12px rgba(21,101,192,0.22) !important;
+}
+.btn.registerbtn:hover, .btn.loginbtn:hover, button.registerbtn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(21,101,192,0.32) !important;
+}
+.btn.registerbtn:disabled, button.registerbtn:disabled {
+  opacity: 0.55 !important; cursor: not-allowed !important; transform: none !important;
+}
+
+/* ── Action Buttons ────────────────────────────────────────── */
+.btn-action {
+  padding: 5px 14px; border: none; border-radius: 6px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: all 0.2s; margin: 2px;
+}
+.btn-action.accept { background: #e8f5e9; color: #2e7d32; }
+.btn-action.accept:hover { background: #2e7d32; color: #fff; }
+.btn-action.reject { background: #fce4ec; color: #c62828; }
+.btn-action.reject:hover { background: #c62828; color: #fff; }
+
+/* ── Badges ────────────────────────────────────────────────── */
+.badge-active  { background:#e8f5e9; color:#2e7d32; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
+.badge-pending { background:#fff8e1; color:#e65100; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
+.badge-inactive { background:#fce4ec; color:#c62828; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
+/* legacy slot classes used in existing templates */
+.accepted { background:#e8f5e9; color:#2e7d32; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
+.pending  { background:#fff8e1; color:#e65100; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
+.rejected { background:#fce4ec; color:#c62828; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
+.noslot   { background:#f3f4f6; color:#6b7280; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
+
+/* ── Alert ─────────────────────────────────────────────────── */
+.alert-info-custom {
+  background:#e3f2fd; border-left:4px solid var(--primary);
+  border-radius:10px; padding:13px 18px;
+  color:#1565c0; font-size:14px; margin-bottom:20px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Profile / Patient Cards ───────────────────────────────── */
+.patient-card, .doctor-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1.5px solid #e8f0fe;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+.patient-card:hover, .doctor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(21,101,192,0.13);
+}
+.card-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 8px; }
+.card-name { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--primary); font-size: 15px; }
+.card-detail { font-size: 13px; color: var(--text-secondary); }
+
+/* ── Info row (label: value) ───────────────────────────────── */
+.info-row { display: flex; gap: 6px; font-size: 13px; color: var(--text-secondary); padding: 3px 0; }
+.info-label { font-weight: 600; color: var(--primary); min-width: 110px; }
+
+/* ── Message card ──────────────────────────────────────────── */
+.message-card {
+  background: #e3f2fd; border-left: 4px solid var(--primary);
+  border-radius: 10px; padding: 12px 18px; margin-bottom: 20px;
+  font-size: 14px; color: var(--primary); font-weight: 500;
+}
+
+/* ── Search / mini-form box ────────────────────────────────── */
+.search-box {
+  background: #f8faff; border: 1.5px solid #d8e2f0;
+  border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f0f4f8; }
+::-webkit-scrollbar-thumb { background: #b0bec5; border-radius: 3px; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .page-wrapper { padding: 16px 12px 48px; }
+  .form-page-wrapper { padding: 16px 10px 48px; }
+  .section-card { padding: 20px 16px; }
+  thead th, tbody td { padding: 9px 10px; font-size: 12px; }
+}

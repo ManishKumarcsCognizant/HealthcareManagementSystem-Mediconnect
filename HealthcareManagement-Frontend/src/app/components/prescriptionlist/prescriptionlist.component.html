@@ -1,53 +1,78 @@
-<app-header></app-header>
+﻿<app-header></app-header>
 
-<div class="heading"><h1>Your Prescription</h1></div>
-<div class="message" id="messagecard">
-    <form #tempform="ngForm" (ngSubmit)="searchPrescription()">
-    <div class="form-group">
-        <label for="patientname">Patient Name : <b class="text-danger">*</b></label>
-        <input type="text" class="form-control" placeholder="enter patient name" name="patientname" [(ngModel)]="this.name" required 
-        #patientname="ngModel"
-        [class.is-invalid]="patientname.invalid && patientname.touched">
-       <small class="text-danger" [class.d-none]="patientname.valid || patientname.untouched"><b>required field</b></small>
+<div class="page-wrapper">
+  <div class="section-card">
+    <h3 class="section-heading">My Prescriptions</h3>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="rx-loading">
+      <i class="fa fa-spinner fa-spin"></i>&nbsp; Loading your prescriptions...
     </div>
-    <button style="margin-top: 15px;" [disabled]="tempform.form.invalid" type="submit" class="btn registerbtn"><i class="fa fa-check"></i>&nbsp; search Prescription </button>
-</form>
-</div>
-<div  *ngFor="let patient of prescriptionlist | async" id="prescriptionpages">
-    <button id="printbtn" (click)="onPrint()" style="background-color: rgb(13, 53, 80); padding: 0.5% 3% 0.5% 3%; color: white; margin-left: 85%; border: none; border-radius: 15px;"><i class="fa fa-print"></i> &nbsp;Print</button>
-<div class="prescription-card" style="margin-bottom: 6%; margin-top: -2.5%;"><br>
-    <div class="header-flag">
-        <div style="margin-left: 5%;" class="topname"><h3>Healthcare Management System</h3></div>
-        <div style="margin-left: 15%;" class="topname"><h5>[developed by Gowthamraj K]</h5></div>
-        <img style="margin-left: 75%; margin-top: -17%;" [src]="'assets/img/medicinelogo.png'" width="120" height="90">
+
+    <!-- Empty state -->
+    <div *ngIf="!loading && prescriptionlist.length === 0" class="rx-empty">
+      <i class="fa fa-file-text-o"></i>
+      <p>No prescriptions found for your account</p>
     </div>
-    <div class="prescription-body">
-        <hr>
-        <div style="color: rgb(30, 113, 146); font-weight: bold;">Dr.{{patient.doctorname}} MBBS,MS,PhD</div>
-        <div style="color: black; font-weight: bold; margin-top: -5%; margin-left:70%;"><small style="color: rgb(9, 68, 70);"><b>PatientID : </b><b style="color: maroon;">{{patient.patientid}}</b></small></div>
-        <div style="color: black; font-weight: bold;"><small style="color: rgb(9, 68, 70);"><b>Age : </b><b style="color: darkblue;">{{patient.age}}</b></small></div>
-        <div style="color: black; font-weight: bold; margin-top: -5%; margin-left:74.5%;"><small style="color: rgb(9, 68, 70);"><b>Date : </b><b style="color: darkblue;">{{patient.date}}</b></small></div>
-        <hr><br>
-        <div style="color: black; font-weight: 600;">Please find your respective treatment prescription from your doctor...</div>
-        <br>
-         <div style="color: darkblue; font-weight: 800; margin-bottom: 1%;">Patient Name : <b style="color: maroon; margin-left: 12%;">{{patient.patientname}}</b></div>
-         <div style="color: darkblue; font-weight: 800; margin-bottom: 1%;">Gender : <b style="color: maroon; margin-left: 22%;">{{patient.gender}}</b></div>
-         <div style="color: darkblue; font-weight: 800; margin-bottom: 1%;">Patient Disease : <b style="color: maroon; margin-left: 9%;">{{patient.disease}}</b></div>
-         <div style="color: darkblue; font-weight: 800; margin-bottom: 2%;">Prescription : <b style="color: maroon; margin-left: 14.5%;">{{patient.prescription}}</b></div>
-         <div style="color: darkblue; font-weight: 800; margin-bottom: 1%; ">Admission Status : 
-            <b style="color: white; background-color: rgb(245, 168, 24); border-radius: 15px; padding: 5px 15px 5px 15px; margin-left: 6%;" *ngIf="patient.admissionstatus === 'false'">Admission Pending</b>
-            <b style="color: white; background-color: darkgreen; border-radius: 15px; padding: 5px 15px 5px 15px; margin-left: 6%;" *ngIf="patient.admissionstatus === 'accept'">Admitted</b>
-            <b style="color: white; background-color: red; border-radius: 15px; padding: 5px 15px 5px 15px; margin-left: 6%;" *ngIf="patient.admissionstatus === 'reject'">Rejected</b>
+
+    <!-- Prescription cards -->
+    <div *ngIf="!loading && prescriptionlist.length > 0">
+      <div class="rx-print-bar no-print">
+        <span class="rx-count-badge"><i class="fa fa-file-medical"></i>&nbsp; {{prescriptionlist.length}} prescription{{prescriptionlist.length > 1 ? 's' : ''}} found</span>
+        <button class="btn-print" (click)="onPrint()"><i class="fa fa-print"></i>&nbsp; Print All</button>
+      </div>
+
+      <div *ngFor="let rx of prescriptionlist; let i = index" class="prescription-card">
+        <!-- Card header -->
+        <div class="rx-card-header">
+          <div class="rx-logo-area">
+            <i class="fa fa-heartbeat rx-logo-icon"></i>
+            <span class="rx-brand">MediConnect</span>
+          </div>
+          <div class="rx-meta">
+            <span><b>Patient ID:</b> <span class="rx-id">{{rx.patientid}}</span></span>
+            <span><b>Date:</b> {{rx.date}}</span>
+          </div>
         </div>
-         <br><br>
-         <div style="margin-left: 20%; font-weight: 600;">(Follow the above given prescriptions properly)</div>
-         <div style="margin-left: 40%; font-weight: 600;">Get Well Soon !!!!</div>
+
+        <!-- Card body -->
+        <div class="rx-card-body">
+          <div class="rx-doctor-line"><i class="fa fa-user-md"></i>&nbsp; Dr. {{rx.doctorname}}&nbsp;<small>MBBS, MS, PhD</small></div>
+          <hr class="rx-divider">
+
+          <div class="rx-info-grid">
+            <div class="rx-info-item"><span class="rx-lbl">Patient</span><span>{{rx.patientname}}</span></div>
+            <div class="rx-info-item"><span class="rx-lbl">Age</span><span>{{rx.age}}</span></div>
+            <div class="rx-info-item"><span class="rx-lbl">Gender</span><span>{{rx.gender}}</span></div>
+            <div class="rx-info-item"><span class="rx-lbl">Disease</span><span>{{rx.disease}}</span></div>
+          </div>
+
+          <div class="rx-prescription-box">
+            <div class="rx-prescription-label"><i class="fa fa-file-text"></i>&nbsp; Prescription</div>
+            <div class="rx-prescription-text">{{rx.prescription}}</div>
+          </div>
+
+          <div class="rx-admission-row">
+            <span class="rx-lbl">Admission Status:</span>
+            <span class="badge-pending" *ngIf="rx.admissionstatus === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Pending</span>
+            <span class="badge-active" *ngIf="rx.admissionstatus === 'accept'"><i class="fa fa-hospital-o"></i>&nbsp;Admitted</span>
+            <span class="badge-inactive" *ngIf="rx.admissionstatus === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Rejected</span>
+          </div>
+
+          <div class="rx-footer-note">
+            <i class="fa fa-info-circle"></i>&nbsp; Follow the prescribed treatment carefully. Get well soon!
+          </div>
+        </div>
+
+        <!-- Card footer -->
+        <div class="rx-card-footer">
+          <span><i class="fa fa-hospital-o"></i>&nbsp; MediConnect Healthcare</span>
+          <span><i class="fa fa-envelope"></i>&nbsp; support@mediconnect.com</span>
+        </div>
+      </div>
     </div>
-    <div class="footer-flag" style="padding: 15px; color: white; margin-bottom: 3%;">
-        <div style="margin-left: 5%; float: left;"><h6><i class="fa fa-phone"></i> &nbsp;9698382306 / 8610254674</h6></div>
-        <div style="margin-right: 5%; float: right;"><h6><i class="fa fa-envelope"></i> &nbsp;gowthamraj692@gmail.com</h6></div>
-    </div>
+
+  </div>
 </div>
-</div>
-<br><br><br><br>
+
 <app-footer></app-footer>

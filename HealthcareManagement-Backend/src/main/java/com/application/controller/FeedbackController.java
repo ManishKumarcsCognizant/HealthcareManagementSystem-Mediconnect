@@ -21,14 +21,12 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @PostMapping("/feedback")
-    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Feedback> submitFeedback(@RequestBody Feedback feedback) {
         Feedback saved = feedbackService.saveFeedback(feedback);
         return new ResponseEntity<Feedback>(saved, HttpStatus.OK);
     }
 
     @GetMapping("/feedbacks")
-    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Feedback>> getFeedbacks() {
         List<Feedback> feedbackList = feedbackService.getAllFeedback();
         return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);

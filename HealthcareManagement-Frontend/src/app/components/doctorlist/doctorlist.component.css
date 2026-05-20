@@ -1,112 +1,129 @@
-@import url('https://fonts.googleapis.com/css2?family=Aladin&family=Merienda+One&family=Staatliches&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
 
-.row
-  {
-    margin-left: 10%;
-    margin-top: 3%;
-  }
-  #bloodCards
-  {
-    margin-right: 5%;
-    margin-bottom: 4%;
-    border-radius: 15px;
-    padding: 0px;
-    transition: transform .2s;
-    box-shadow: 5px 5px 25px 8px rgb(147, 158, 147);
-  }
-  #bloodCards:hover
-  {
-    transform: scale(1.05);
-    cursor: pointer;
-  }
-.card-block
-{
-  margin-top: -46.3%;
-  margin-left: 45%;
+:host { display: block; }
+
+.subheading-text {
+  color: #666;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
 }
-.text{
-  font-family: serif;
-  font-size: larger;
-  font-weight: bolder;
+
+/* Doctor Card Grid */
+.doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
 }
-#searchtxt
-{
-  width: 20%;
-  float: right;
+
+.doctor-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  padding: 16px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #eef2f9;
 }
-.img-block{
-    width: 40%;
-    height: 180px;
-    border-top-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: rgb(192, 56, 56);
+.doctor-card:hover {
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
 }
-.circle{
-    background-color: rgb(212, 188, 50);
-    margin-left: auto;
-    margin-right: auto;
-    align-content: center;
-    margin-top: 10%;
-    margin-bottom: auto;
-    border-radius: 50%;
-    width: 90%;
-    height: 80%;
+
+/* Avatar */
+.doctor-avatar-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e3f0ff, #bbdefb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(21,101,192,0.12);
 }
-.bloodimg
-{
-    margin-left: 13%;
-    margin-top: 8%;
+.doctor-avatar {
+  width: 46px;
+  height: 52px;
+  object-fit: contain;
 }
-.status-btn
-{
-    padding: 5px 30px 5px 30px;
-    background-color: green;
-    color: white;
-    border-radius: 15px;
-    width: 200px;
-    margin-top: 6%;
-    margin-left: 25%;
-    margin-bottom: 3%;
+
+/* Name & specialty */
+.doctor-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: #1a237e;
+  margin-bottom: 3px;
 }
-.status-btn1
-{
-  background-color: rgb(199, 93, 32);
-  padding: 5px 30px 5px 30px;
-    color: white;
-    border-radius: 15px;
-    width: 200px;
-    margin-top: 6%;
-    margin-left: 25%;
-    margin-bottom: 3%;
+.doctor-specialty {
+  font-size: 11px;
+  color: #1565c0;
+  font-weight: 600;
+  background: #e8f0fe;
+  padding: 2px 9px;
+  border-radius: 20px;
+  margin-bottom: 7px;
+  font-family: 'Inter', sans-serif;
 }
-.status-btn2
-{
-  background-color: rgb(187, 40, 40);
-  padding: 5px 30px 5px 30px;
-    color: white;
-    border-radius: 15px;
-    width: 200px;
-    margin-top: 6%;
-    margin-left: 25%;
-    margin-bottom: 3%;
+
+/* Badges */
+.badge-active, .badge-pending, .badge-inactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 10.5px;
+  font-weight: 600;
+  margin-bottom: 2px;
 }
-.heading-text
-{
-    font-weight: bolder;
-    font-size: 40px;
-    margin-top: 0.5%;
-    color: maroon;
-    font-family: 'Aladin', cursive;
-    letter-spacing: 1px;
-    margin-left: 45%;
+.badge-active  { background: #e8f5e9; color: #2e7d32; }
+.badge-pending { background: #fff8e1; color: #f57f17; }
+.badge-inactive{ background: #fce4ec; color: #c62828; }
+
+/* Divider */
+.doctor-divider {
+  width: 100%;
+  height: 1px;
+  background: #eef2f9;
+  margin: 8px 0;
 }
-.subheading-text
-{
-    font-weight: bolder;
-    font-size: 25px;
-    color: green;
-    font-family: 'Aladin', cursive;
-    letter-spacing: 1px;
-    margin-left: 32%;
-    margin-bottom: 1%;
+
+/* Info rows */
+.doctor-info-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+.doctor-info-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  color: #555;
+}
+.doctor-info-icon {
+  color: #1565c0;
+  width: 14px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.doctor-email {
+  word-break: break-all;
+  font-size: 12px;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .doctor-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+}
+@media (max-width: 400px) {
+  .doctor-grid { grid-template-columns: 1fr; }
 }

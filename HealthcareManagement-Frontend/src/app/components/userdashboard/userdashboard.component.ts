@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
@@ -39,11 +39,7 @@ export class UserdashboardComponent implements OnInit {
     this.doctors = this._service.getTotalDoctors();
     this.slots = this._service.getTotalSlots();
 
-    $('.menuToggle').on('click',function(){
-      $(this).toggleClass('menuToggle_open');
-      $(".menu").toggleClass('hideMenu');
-    
-    });
+    // menu toggle handled via Angular (see HTML)
   }
 
 }

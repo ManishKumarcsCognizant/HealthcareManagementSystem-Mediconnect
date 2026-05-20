@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as $ from 'jquery'
 import { Doctor } from 'src/app/models/doctor';
 import { User } from 'src/app/models/user';
 import { DoctorService } from 'src/app/services/doctor.service';
@@ -15,25 +14,18 @@ export class RegistrationComponent implements OnInit {
 
   user = new User();
   doctor = new Doctor();
-   msg = ' ';
-  
+  msg = ' ';
+  confirmPassword = '';
+  confirmDoctorPassword = '';
+  activeTab: 'user' | 'doctor' = 'user';
+
   constructor(private _registrationService : RegistrationService, private _doctorService : DoctorService, private _router : Router) { }
 
-  ngOnInit(): void 
-  {
-    $(".nav1").addClass("highlight1")
-    $("#home-tab").click(function(){
-      $("#profile").hide();
-      $("#home").show();
-      $(".nav1").addClass("highlight1")
-      $(".nav2").removeClass("highlight2")
-    });
-    $("#profile-tab").click(function(){
-      $("#home").hide();
-      $("#profile").show();
-      $(".nav2").addClass("highlight2")
-      $(".nav1").removeClass("highlight1")
-    });
+  ngOnInit(): void {}
+
+  switchTab(tab: 'user' | 'doctor') {
+    this.activeTab = tab;
+    this.msg = ' ';
   }
 
   registerUser()
@@ -70,9 +62,14 @@ export class RegistrationComponent implements OnInit {
         this._router.navigate(['/registrationsuccess']);
       },
       error => {
-        console.log("Registration Failed");
-        console.log(error.error);
-        this.msg = "Doctor with "+this.user.email+" already exists !!!";
+        console.log("Registration Failed", error);
+        if (error.status === 0) {
+          this.msg = "Cannot connect to server. Please ensure the backend is running.";
+        } else if (error.error && typeof error.error === 'string') {
+          this.msg = error.error;
+        } else {
+          this.msg = "Doctor with " + this.doctor.email + " already exists !!!";
+        }
       }
     )
   }

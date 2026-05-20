@@ -28,6 +28,11 @@ export class UserService {
     return this._http.get<any>(`${NAV_URL}/getprescriptionbyname/`+name);
   }
 
+  public getPatientListByEmail(email: string) : Observable<any>
+  {
+    return this._http.get<any>(`${NAV_URL}/patientlistbyemail/` + email);
+  }
+
   public getProfileDetails(loggedUser : string) : Observable<any>
   {
     return this._http.get(`${NAV_URL}/profileDetails/`+loggedUser);

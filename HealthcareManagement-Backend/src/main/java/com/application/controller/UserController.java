@@ -34,7 +34,6 @@ public class UserController
 	private PrescriptionService prescriptionService;
 	
 	@GetMapping("/userlist")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<User>> getUsers() throws Exception
 	{
 		List<User> users = userRegisterService.getAllUsers();
@@ -42,7 +41,6 @@ public class UserController
 	}
 	
 	@GetMapping("/getprescriptionbyname/{patientname}")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Prescription>> getPrescriptionByPatientname(@PathVariable String patientname) throws Exception
 	{
 		List<Prescription> prescription = prescriptionService.getPrescriptionByPatientname(patientname);
@@ -50,7 +48,6 @@ public class UserController
 	}
 	
 	@GetMapping("/patientlistbyemail/{email}")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Appointments>> getPatientList(@PathVariable String email) throws Exception
 	{
 		List<Appointments> patients = appointmentBookingService.findPatientByEmail(email);
@@ -58,7 +55,6 @@ public class UserController
 	}
 	
 	@GetMapping("/patientlist")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Appointments>> getPatients() throws Exception
 	{
 		List<Appointments> patients = appointmentBookingService.getAllPatients();
@@ -66,7 +62,6 @@ public class UserController
 	}
 	
 	@GetMapping("/gettotalpatients")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Integer>> getTotalPatients() throws Exception
 	{
 		List<Appointments> patients = appointmentBookingService.getAllPatients();
@@ -76,7 +71,6 @@ public class UserController
 	}
 	
 	@GetMapping("/gettotalappointments")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Integer>> getTotalAppointments() throws Exception
 	{
 		List<Appointments> patients = appointmentBookingService.getAllPatients();
@@ -86,7 +80,6 @@ public class UserController
 	}
 	
 	@GetMapping("/gettotalprescriptions")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Integer>> getTotalPrescriptions() throws Exception
 	{
 		List<Prescription> patients = prescriptionService.getAllPrescriptions();
@@ -96,7 +89,6 @@ public class UserController
 	}
 	
 	@GetMapping("/profileDetails/{email}")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<User>> getProfileDetails(@PathVariable String email) throws Exception
 	{
 		List<User> users = userRegisterService.fetchProfileByEmail(email);
@@ -104,7 +96,6 @@ public class UserController
 	}
 	
 	@PutMapping("/updateuser")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<User> updateUserProfile(@RequestBody User user) throws Exception
 	{
 		User userobj = userRegisterService.updateUserProfile(user);
@@ -112,7 +103,6 @@ public class UserController
 	}
 	
 	@PostMapping("/bookNewAppointment")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<Appointments> addNewAppointment(@RequestBody Appointments appointment) throws Exception
 	{
 		String[] dateArr = appointment.getDate().split("-");
@@ -146,11 +136,11 @@ public class UserController
 				{
 					throw new Exception(message);
 				}
-				if(appointments.getSlot().equalsIgnoreCase("Pm slot") && obj.getPmslot().equalsIgnoreCase("booked"))
+				if(appointments.getSlot().equalsIgnoreCase("Pm slot") && obj.getPmstatus().equalsIgnoreCase("booked"))
 				{
 					throw new Exception(message);
 				}
-				if(appointments.getSlot().equalsIgnoreCase("Noon slot") && obj.getNoonslot().equalsIgnoreCase("booked"))
+				if(appointments.getSlot().equalsIgnoreCase("Noon slot") && obj.getNoonstatus().equalsIgnoreCase("booked"))
 				{
 					throw new Exception(message);
 				}
@@ -164,15 +154,15 @@ public class UserController
 		String patientID = getPatientID();
 		appointmentBookingService.updatePatientId(patientID,appointment.getDoctorname(),appointment.getPatientname(),appointment.getDate());
 		
-		if(appointment.getSlot().equalsIgnoreCase("Pm slot") && obj.getPmstatus().equalsIgnoreCase("unbooked"))
+		if(appointment.getSlot().equalsIgnoreCase("Pm slot") && !obj.getPmstatus().equalsIgnoreCase("booked"))
 		{
 			appointmentBookingService.bookPMSlot(appointment.getDoctorname(),appointment.getDate());
 		}
-		if(appointment.getSlot().equalsIgnoreCase("Am slot") && obj.getAmstatus().equalsIgnoreCase("unbooked"))
+		if(appointment.getSlot().equalsIgnoreCase("Am slot") && !obj.getAmstatus().equalsIgnoreCase("booked"))
 		{
 			appointmentBookingService.bookAMSlot(appointment.getDoctorname(),appointment.getDate());
 		}
-		if(appointment.getSlot().equalsIgnoreCase("Noon slot") && obj.getNoonstatus().equalsIgnoreCase("unbooked"))
+		if(appointment.getSlot().equalsIgnoreCase("Noon slot") && !obj.getNoonstatus().equalsIgnoreCase("booked"))
 		{
 			appointmentBookingService.bookNoonSlot(appointment.getDoctorname(),appointment.getDate());
 		}

@@ -3,7 +3,6 @@ package com.application.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Random;
 
 import com.application.model.Appointments;
 import com.application.model.Slots;
@@ -21,9 +20,7 @@ public class AppointmentBookingService
 	
 	public void saveSlots(Slots slot)
 	{
-		Random random = new Random();   
-		int val = random.nextInt(1000);  
-		slotBookingRepository.saveSlots(val, slot.getEmail(),slot.getDoctorname(),slot.getSpecialization(),slot.getAmslot(),"unbooked",slot.getNoonslot(),"unbooked",slot.getPmslot(),"unbooked",slot.getDate(),slot.getPatienttype());
+		slotBookingRepository.save(slot);
 	}
 	
 	public List<Slots> getSlotDetails(String email)

@@ -1,149 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Aladin&family=Merienda+One&family=Staatliches&display=swap');
 
-.register{
-    background: -webkit-linear-gradient(left, #0e5551, #48c5bf);
-    margin-top: 1.2%;
-    margin-bottom: 3%;
-    border-radius: 15px;
-    padding: 3%;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap');
+* { box-sizing: border-box; }
+
+/* Layout */
+.reg-page { display: flex; min-height: 100vh; font-family: 'Inter', sans-serif; }
+
+/* Left panel */
+.reg-left { width: 340px; flex-shrink: 0; background: linear-gradient(145deg, #00695c 0%, #004d40 60%, #00251a 100%); display: flex; align-items: center; justify-content: center; padding: 48px 32px; position: relative; overflow: hidden; }
+.reg-left::before { content: ''; position: absolute; top: -60px; right: -60px; width: 260px; height: 260px; background: rgba(255,255,255,0.04); border-radius: 50%; }
+.reg-left-content { position: relative; z-index: 1; }
+.reg-brand { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 28px; display: flex; align-items: center; gap: 8px; }
+.reg-brand .fa { color: #a5d6a7; }
+.reg-left-content h2 { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 700; color: #fff; margin: 0 0 12px; }
+.reg-left-content p { color: rgba(255,255,255,0.75); font-size: 13px; margin-bottom: 28px; line-height: 1.6; }
+.reg-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.reg-feature { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.85); font-size: 13px; }
+.reg-feature .fa { color: #a5d6a7; width: 16px; }
+.reg-login-hint { font-size: 12px; color: rgba(255,255,255,0.6); }
+.reg-login-hint a { color: #a5d6a7; font-weight: 600; text-decoration: none; margin-left: 4px; }
+
+/* Right panel */
+.reg-right { flex: 1; background: #f0f4f8; display: flex; align-items: flex-start; justify-content: center; padding: 32px 24px 60px; overflow-y: auto; }
+.reg-card { width: 100%; max-width: 720px; background: #fff; border-radius: 20px; padding: 32px 36px; box-shadow: 0 6px 30px rgba(0,0,0,0.08); }
+
+/* Tabs */
+.reg-tabs { display: flex; background: #e8ecef; border-radius: 12px; padding: 4px; margin-bottom: 24px; gap: 4px; }
+.reg-tab { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-size: 14px; font-weight: 600; color: #666; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.reg-tab.active { background: #fff; color: #00695c; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+/* Error */
+.reg-msg { display: block; min-height: 20px; font-size: 13px; margin-bottom: 8px; }
+
+/* Form title */
+.reg-form-title { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; color: #1a3c34; margin: 0 0 22px; }
+
+/* Fields grid */
+.reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+.form-control { width: 100%; padding: 10px 13px; border: 2px solid #e0e0e0; border-radius: 9px; font-size: 14px; font-family: 'Inter', sans-serif; color: #333; outline: none; transition: border-color 0.2s; }
+.form-control:focus { border-color: #00695c; box-shadow: 0 0 0 3px rgba(0,105,92,0.1); }
+.form-control.is-invalid { border-color: #e53935; }
+.field-hint { display: block; font-size: 11px; color: #999; margin-top: 3px; }
+
+/* Terms */
+.reg-terms { margin-bottom: 22px; font-size: 13px; color: #555; display: flex; align-items: center; gap: 8px; }
+
+/* Submit button */
+.reg-submit-btn { width: 100%; padding: 13px; background: linear-gradient(135deg, #00695c, #004d40); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; box-shadow: 0 4px 14px rgba(0,105,92,0.3); }
+.reg-submit-btn:hover { background: linear-gradient(135deg, #004d40, #00251a); transform: translateY(-1px); }
+.reg-submit-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+
+@media (max-width: 768px) {
+  .reg-page { flex-direction: column; }
+  .reg-left { width: 100%; padding: 28px 24px; }
+  .reg-grid { grid-template-columns: 1fr; }
 }
-.register-left{
-    text-align: center;
-    color: #fff;
-    margin-top: 4%;
-}
-.register-left input{
-    border: none;
-    border-radius: 1.5rem;
-    padding: 2%;
-    width: 60%;
-    background: #f8faf9;
-    font-weight: bold;
-    color: #383d41;
-    margin-top: 30%;
-    margin-bottom: 3%;
-    cursor: pointer;
-}
-.register-right{
-    background: #f8f9fa;
-    border-top-left-radius: 10% 50%;
-    border-bottom-left-radius: 10% 50%;
-}
-.register-left img{
-    margin-top: 15%;
-    margin-bottom: 5%;
-    width: 25%;
-    -webkit-animation: mover 2s infinite  alternate;
-    animation: mover 1s infinite  alternate;
-}
-@-webkit-keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-@keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-.register-left p{
-    font-weight: lighter;
-    padding: 12%;
-    margin-top: -9%;
-}
-.register .register-form{
-    padding: 10%;
-    margin-top: 10%;
-}
-.btnRegister{
-    float: right;
-    margin-top: -1%;
-    margin-bottom: 3%;
-    margin-right: 34%;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 1%;
-    border: 1px solid black;
-    color: #0a3d3b;
-    font-weight: 600;
-    font-size: 20px;
-    width: 30%;
-    cursor: pointer;
-}
-.loginbtn
-{
-    float: right;
-    margin-top: 10%;
-    margin-right: 25%;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 2%;
-    background: transparent;
-    color: #ffffff;
-    font-weight: bolder;
-    width: 50%;
-    cursor: pointer;
-}
-.loginbtn:hover{
-    cursor: pointer;
-    background: #ffffff;
-    color: #0a3d3b;
-}
-.btnRegister:hover{
-    background: #0a3d3b;
-    color: #fff;
-    cursor: pointer;
-}
-.register .nav-tabs{
-    margin-top: 3%;
-    border: none;
-    background: #11635f;
-    border-radius: 1.5rem;
-    width: 28%;
-    float: right;
-}
-.register .nav-tabs .nav-link{
-    padding: 2%;
-    height: 34px;
-    font-weight: 600;
-    color: #fff;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
-}
-.register .nav-tabs .nav-link:hover{
-    border: none;
-}
-.register .nav-tabs .nav-link.active{
-    width: 100px;
-    color: #0062cc;
-    border: 2px solid #0062cc;
-    border-top-left-radius: 1.5rem;
-    border-bottom-left-radius: 1.5rem;
-}
-.highlight1, .highlight2{
-    width: 100px;
-    color: #fdfdfd;
-    background-color: #31e4c6;
-    border: 2px solid #0a5f51;
-    border-top-left-radius: 1.5rem;
-    border-bottom-left-radius: 1.5rem;
-}
-.nav1:hover, .nav2:hover{
-    cursor: pointer;
-}
-.register-heading{
-    text-align: center;
-    margin-top: 8%;
-    font-weight: bold;
-    font-size: 35px;
-    letter-spacing: 1.5px;
-    margin-bottom: -15%;
-    font-family: 'Aladin', cursive;
-    color: #413613;
-}
-#home-tab
-{
-    background-color: none;
-}
-input{
-    margin-bottom: 4%;
-    border-radius: 10px;
-}
+
+.feature-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.feature-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.85); font-size: 13px; }
+.left-cta { font-size: 12px; color: rgba(255,255,255,0.6); }
+.left-cta a { color: #a5d6a7; font-weight: 600; text-decoration: none; margin-left: 4px; }
+.reg-right { flex: 1; background: #f0f4f8; display: flex; align-items: flex-start; justify-content: center; padding: 32px 24px 60px; overflow-y: auto; }
+.reg-card { width: 100%; max-width: 720px; background: #fff; border-radius: 20px; padding: 32px 36px; box-shadow: 0 6px 30px rgba(0,0,0,0.08); }
+.role-tabs { display: flex; background: #e8ecef; border-radius: 12px; padding: 4px; margin-bottom: 24px; gap: 4px; }
+.role-tab { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 9px; font-size: 14px; font-weight: 600; color: #666; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.role-tab.active { background: #fff; color: #00695c; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.err-msg { display: block; padding: 10px 14px; background: #fdecea; border-radius: 8px; color: #c62828; font-size: 13px; margin-bottom: 16px; }
+.form-title { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; color: #1a3c34; margin: 0 0 22px; }
+.fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.field-group.full { grid-column: 1 / -1; }
+.field-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 6px; }
+.req { color: #e53935; }
+.field-input { width: 100%; padding: 10px 13px; border: 2px solid #e0e0e0; border-radius: 9px; font-size: 14px; font-family: 'Inter', sans-serif; color: #333; outline: none; transition: border-color 0.2s; }
+.field-input:focus { border-color: #00695c; box-shadow: 0 0 0 3px rgba(0,105,92,0.1); }
+.field-input.invalid { border-color: #e53935; }
+.field-error { display: block; font-size: 11px; color: #e53935; margin-top: 3px; }
+.hint { display: block; font-size: 11px; color: #999; margin-top: 3px; }
+.terms-row { margin-bottom: 22px; font-size: 13px; color: #555; }
+.btn-register { width: 100%; padding: 13px; background: linear-gradient(135deg, #00695c, #004d40); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; box-shadow: 0 4px 14px rgba(0,105,92,0.3); }
+.btn-register:hover { background: linear-gradient(135deg, #004d40, #00251a); transform: translateY(-1px); }
+.btn-register:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+@media (max-width: 768px) { .reg-page { flex-direction: column; } .reg-left { width: 100%; padding: 28px 24px; } .fields-grid { grid-template-columns: 1fr; } }

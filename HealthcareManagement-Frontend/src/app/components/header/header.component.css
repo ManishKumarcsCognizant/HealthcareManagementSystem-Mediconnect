@@ -1,41 +1,177 @@
- 
-  .sidebar-logo {
-    padding: 10px 15px 10px 30px;
-    font-size: 20px;
-    text-align: right;
-    background-color: #0d0a35;
-    width: 100%;
-  }
-  ::ng-deep .navCss nav
-  {
-    background-color: #0d0a35; 
-    color: white;
-    font-weight: 600;
-  }
-  #nav-link:hover{
-    cursor: pointer;
-    background-color: #23ad9b;
-    padding: 5px 8px 5px 8px;
-    border-radius: 15px;
-  }
-  .dropdown-item:hover{
-    cursor: pointer;
-    color: white;
-    font-weight: 300;
-    background-color: #e2e2e2;
-  }
-  .logoutbtn{
-    border: none;
-    background:transparent;
-    color: white;
-    border-radius: 15px;
-    margin-left: 10px;
-    padding: 5px 10px 5px 10px;
-    font-size: small;
-  }
-  .logoutbtn:hover{
-    cursor: pointer;
-    background-color: #23ad9b;
-    padding: 5px 8px 5px 8px;
-    border-radius: 15px;
-  }
+﻿/* ============================================================
+   APP NAVBAR
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
+
+.app-navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1100;
+  height: 60px;
+  background: linear-gradient(135deg, #00695c 0%, #004d40 100%);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 28px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+}
+.brand-icon { color: #a5d6a7; font-size: 22px; }
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-welcome {
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  padding: 0 14px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  margin-right: 6px;
+}
+.nav-btn {
+  color: rgba(255,255,255,0.9);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+  text-decoration: none;
+}
+.nav-dropdown {
+  position: relative;
+}
+.nav-profile-btn { border-color: rgba(255,255,255,0.3); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+  min-width: 160px;
+  overflow: hidden;
+  z-index: 2000;
+}
+.nav-dropdown-menu.open { display: block; }
+.dropdown-role-label {
+  display: block;
+  padding: 10px 16px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #00695c;
+  border-bottom: 1px solid #f0f0f0;
+}
+.dropdown-item-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #333;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+.dropdown-item-link:hover {
+  background: #e8f5e9;
+  color: #00695c;
+  text-decoration: none;
+}
+
+/* Legacy selectors kept for compat */
+::ng-deep .navCss nav {
+  background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%) !important;
+  box-shadow: 0 2px 12px rgba(13,71,161,0.25);
+  padding: 0 24px;
+  color: #ffffff;
+}
+
+.sidebar-logo {
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  background: #0d47a1;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+#nav-link {
+  color: rgba(255,255,255,0.92) !important;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+#nav-link:hover {
+  cursor: pointer;
+  background-color: rgba(255,255,255,0.15);
+  color: #ffffff !important;
+}
+
+.dropdown-item {
+  font-size: 14px;
+  padding: 8px 16px;
+  color: #1a202c;
+  transition: background 0.15s;
+}
+
+.dropdown-item:hover {
+  cursor: pointer;
+  background-color: #e8f0fe;
+  color: #1565c0;
+}
+
+.logoutbtn {
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-left: 8px;
+}
+
+.logoutbtn:hover {
+  cursor: pointer;
+  background-color: rgba(255,255,255,0.2);
+  border-color: white;
+}

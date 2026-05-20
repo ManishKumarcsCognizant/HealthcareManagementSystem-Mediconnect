@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap');
+.success-page { min-height: 100vh; background: linear-gradient(135deg, #e8f5e9 0%, #f0f4f8 100%); display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; }
+.success-card { background: #fff; border-radius: 24px; padding: 52px 48px; max-width: 480px; width: 90%; text-align: center; box-shadow: 0 10px 50px rgba(0,105,92,0.15); }
+.success-icon-wrap { margin-bottom: 24px; }
+.success-title { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 800; color: #1a3c34; margin: 0 0 14px; }
+.success-subtitle { font-size: 15px; color: #777; line-height: 1.7; margin-bottom: 30px; }
+.success-progress { height: 4px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #00695c, #a5d6a7); border-radius: 4px; animation: progress 3s linear forwards; }
+@keyframes progress { from { width: 0%; } to { width: 100%; } }

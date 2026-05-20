@@ -1,76 +1,152 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Volkhov:ital,wght@1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
 
-.container
-{
-    max-width: 700px;
-    padding: 40px 40px 25px 40px;
-    border-radius: 10px; 
-    box-shadow: 5px 5px 35px 8px rgb(147, 158, 147); 
-    background-color: white;
-    margin-top: 2%;
-    margin-bottom: 50px;
+/* ── Page layout ───────────────────────────────────── */
+.add-doc-page {
+  min-height: calc(100vh - 60px);
+  background: #f0f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px 16px 60px;
 }
-input{
-    border-radius: 12px;
-    margin-top: 8px;
+
+/* ── Card ──────────────────────────────────────────── */
+.add-doc-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+  width: 100%;
+  max-width: 740px;
+  padding: 28px 32px 32px;
 }
-.textual
-{
-    color: rgb(77, 72, 14); 
-    text-align: center; 
-    margin-top: -20px;
-    font-family: 'Aladin', cursive;
-    padding: 5px;
-    font-weight: bolder;
-    font-size: 28px;
-    text-transform: uppercase;
+
+/* ── Card header ───────────────────────────────────── */
+.add-doc-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid #ede9f6;
 }
-label{
-    margin-top: 10px;
-    font-family: 'Volkhov', serif;
-    letter-spacing: 0px;
-    font-size: medium;
+.add-doc-icon {
+  width: 46px; height: 46px;
+  background: linear-gradient(135deg, #4a148c, #6a1b9a);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 20px; flex-shrink: 0;
 }
-.registerbtn
-{
-    background-color: transparent;
-    padding-left: 8%;
-    padding-right: 8%;
-    margin: auto;  
-    padding-bottom: 7px;
-    border-radius: 15px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    border: 1px solid black;
+.add-doc-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px; font-weight: 700;
+  color: #4a148c; margin: 0;
 }
-.registerbtn:hover
-{
-    background-color: rgb(23, 78, 78);
-    padding-left: 7%;
-    padding-right: 7%;
-    cursor: pointer;
-    color: white;
+.add-doc-subtitle {
+  font-size: 11.5px; color: #718096; margin: 3px 0 0;
 }
-.logoutbtn{
-    border: none;
-    background:transparent;
-    color: rgb(18, 85, 57);
-    border-radius: 15px;
-    margin-left: 90%;
-    margin-top: 2%;
-    border: 1px solid black;
-    padding: 7px 10px 7px 10px;
-    font-size: small;
-  }
-  .logoutbtn:hover{
-    cursor: pointer;
-    background-color: #23ad9b;
-    color: white;
-    padding: 7px 8px 7px 8px;
-    border-radius: 15px;
-  }
+
+/* ── Section labels ─────────────────────────────────── */
+.add-doc-section-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px; font-weight: 700;
+  color: #6a1b9a;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 18px 0 10px;
+  padding-left: 9px;
+  border-left: 3px solid #6a1b9a;
+  display: flex; align-items: center; gap: 7px;
+}
+
+/* ── 2-col grid ─────────────────────────────────────── */
+.add-doc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 18px;
+}
+.add-doc-field-full { grid-column: 1 / -1; }
+
+/* ── Field ──────────────────────────────────────────── */
+.add-doc-field { display: flex; flex-direction: column; }
+.add-doc-field label {
+  font-size: 12px; font-weight: 600;
+  color: #4a5568; margin-bottom: 4px;
+}
+.add-doc-field .form-control,
+.add-doc-field select.form-control {
+  font-size: 13px !important;
+  padding: 9px 12px !important;
+  height: auto !important;
+  min-height: 38px !important;
+  line-height: 1.5 !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #d8e2f0 !important;
+  background: #fafbff !important;
+  color: #1a202c !important;
+}
+.add-doc-field .form-control:focus,
+.add-doc-field select.form-control:focus {
+  border-color: #6a1b9a !important;
+  box-shadow: 0 0 0 3px rgba(106,27,154,0.10) !important;
+  outline: none !important;
+}
+.add-doc-field .form-control.is-invalid {
+  border-color: #e53935 !important;
+}
+
+.req { color: #e53935; margin-left: 2px; }
+.field-err  { font-size: 11px; color: #e53935; margin-top: 3px; }
+.field-hint { font-size: 11px; color: #718096; margin-top: 3px; }
+
+/* ── Terms row ──────────────────────────────────────── */
+.add-doc-terms {
+  margin-top: 18px;
+  padding: 12px 14px;
+  background: #fce4ec;
+  border-left: 3px solid #c62828;
+  border-radius: 8px;
+}
+.terms-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: #b71c1c;
+  cursor: pointer;
+  margin: 0;
+}
+.terms-label input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; }
+
+/* ── Submit button ──────────────────────────────────── */
+.add-doc-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.add-doc-submit-btn {
+  background: linear-gradient(135deg, #4a148c, #6a1b9a);
+  color: #fff; border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: all 0.2s;
+  box-shadow: 0 3px 12px rgba(74,20,140,0.25);
+}
+.add-doc-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(74,20,140,0.32);
+}
+.add-doc-submit-btn:disabled {
+  opacity: 0.5; cursor: not-allowed; transform: none;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 600px) {
+  .add-doc-card { padding: 18px 14px 22px; }
+  .add-doc-grid { grid-template-columns: 1fr; }
+  .add-doc-actions { justify-content: stretch; }
+  .add-doc-submit-btn { width: 100%; justify-content: center; }
+}

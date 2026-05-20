@@ -1,57 +1,69 @@
-<div class="content">
-    <div class="header" id="header">
-      <div class="nav">
-       <label></label>
-       <div class="switchs">
-        <button class="log" id="log" [routerLink]="['']"><i class="fa fa-home"></i> Home</button>
-        <button class="log" id="log" onclick="location.href='#services';"><i class="fa fa-cog"></i> Services</button>
-        <button class="log" id="log" [routerLink]="['/login']"><i class="fa fa-sign-in"></i> LOGIN</button>
-        <button class="create_acc" id="create_acc" [routerLink]="['/registration']"><i class="fa fa-user-plus"></i> CREATE ACCOUNT</button>
+<div class="welcome-page">
+
+  <!-- Navbar -->
+  <nav class="welcome-nav">
+    <a class="welcome-brand" [routerLink]="['']">
+      <i class="fa fa-heartbeat"></i> MediConnect
+    </a>
+    <div class="nav-actions">
+      <a class="nav-link-btn" onclick="location.href='#services'"><i class="fa fa-cog"></i> Services</a>
+      <a class="nav-link-btn" [routerLink]="['/login']"><i class="fa fa-sign-in"></i> Login</a>
+      <a class="nav-cta-btn" [routerLink]="['/registration']"><i class="fa fa-user-plus"></i> Create Account</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="welcome-hero">
+    <div class="hero-text">
+      <span class="hero-tag">Digital Healthcare Platform</span>
+      <h1 class="hero-title">Welcome to<br><span>MediConnect</span></h1>
+      <p class="hero-desc">Book appointments, check slots, view prescriptions and manage your health records — all in one place.</p>
+      <div class="hero-actions">
+        <a class="hero-btn-primary" [routerLink]="['/registration']"><i class="fa fa-user-plus"></i> Get Started</a>
+        <a class="hero-btn-secondary" [routerLink]="['/login']"><i class="fa fa-sign-in"></i> Login</a>
       </div>
     </div>
-    <div class="main">
-    	<div class="text">
-    		<h1 style="margin-left: -5%; ">HealthCare Management System</h1><br>
-    		<h5 style="font-family: roboto; margin-left: 10%; color: rgb(248, 247, 247);">Developed by - Gowthamraj K</h5><br><br>
-    	</div><br>
-      <img class="floating" id="img3" [src]="'assets/img/healthcaresystem.png'">
+    <div class="hero-image">
+      <img [src]="'assets/img/healthcaresystem.png'" alt="Healthcare">
     </div>
   </div>
-  <br>
-</div>
-<br><br>
-<marquee class="marquee" direction="left"><i class="fa fa-bell"></i> Stay Home !!! Stay Safe !!! Lets Fight together against COVID-19. This HealthCare Management system is designed by Agile Avengers. If Already our Customer, please Login to see your Hospital Reports</marquee>
 
-<main id="main">
-  <section id="services" class="services section-bg">
-    <div class="container" data-aos="fade-up">
-      <div class="section-title">
-        <h2 style="font-family: aladin;">Three Different Logins with New Registration</h2>
+  <!-- Marquee -->
+  <div class="welcome-marquee">
+    <marquee direction="left"><i class="fa fa-bell"></i>&nbsp; Welcome to MediConnect &mdash; Your trusted digital healthcare platform. Book appointments, check slots, view prescriptions and manage your health records all in one place.</marquee>
+  </div>
+
+  <!-- Services / Roles Section -->
+  <section id="services" class="roles-section">
+    <div class="roles-header">
+      <h2>Three Roles, One Platform</h2>
+      <p>Login with your role or create a new account to get started</p>
+    </div>
+    <div class="roles-grid">
+
+      <div class="role-card admin-card" (click)="navigate()">
+        <div class="role-card-icon"><i class="fa fa-shield"></i></div>
+        <h3>Admin</h3>
+        <p>Manage doctors, users and hospital operations from a central dashboard</p>
+        <span class="role-card-btn">Login as Admin <i class="fa fa-arrow-right"></i></span>
       </div>
-      <div class="mid_body2">
-        <div class="details">
-          <div class="detail_1" (click)="navigate()" style="background-color: rgb(238, 236, 138); margin-right: 5%;">
-            <h2 style="font-weight: bolder; font-size: 35px;font-family: aladin; margin-top: 5%; color: rgb(7, 46, 49);"> Admin Login </h2>
-            <div class="circle" style="border-radius: 50%; background-color: white; padding: 10%;">
-                <img [src]="'assets/img/admin.png'" width="130" height="130">
-            </div>
-          </div>
-          <div class="detail_2" (click)="navigate()" style="background-color: rgb(238, 236, 138); margin-right: 5%;">
-            <h2 style="font-weight: bolder; font-size: 35px;font-family: aladin; margin-top: 5%; color: rgb(7, 46, 49);"> Doctor Login </h2>
-            <div class="circle" style="border-radius: 50%; background-color: white; padding: 10%;">
-                <img [src]="'assets/img/maledoctor.png'" width="130" height="130">
-            </div>
-        </div>
-          <div class="detail_3" (click)="navigate()" style="background-color: rgb(238, 236, 138); margin-right: 5%;">
-            <h2 style="font-weight: bolder; font-size: 35px;font-family: aladin; margin-top: 5%; color: rgb(7, 46, 49);"> User Login </h2>
-            <div class="circle" style="border-radius: 50%; background-color: white; padding: 10%;">
-                <img [src]="'assets/img/maleuser.png'" width="130" height="130">
-            </div>
-        </div>
-        </div>
+
+      <div class="role-card doctor-card" (click)="navigate()">
+        <div class="role-card-icon"><i class="fa fa-user-md"></i></div>
+        <h3>Doctor</h3>
+        <p>Manage your schedule, patients, appointments and prescriptions</p>
+        <span class="role-card-btn">Login as Doctor <i class="fa fa-arrow-right"></i></span>
       </div>
+
+      <div class="role-card patient-card" (click)="navigate()">
+        <div class="role-card-icon"><i class="fa fa-user"></i></div>
+        <h3>Patient</h3>
+        <p>Book appointments, track health records and view prescriptions</p>
+        <span class="role-card-btn">Login as Patient <i class="fa fa-arrow-right"></i></span>
+      </div>
+
     </div>
   </section>
-</main>
 
-<app-footer></app-footer>
+  <app-footer></app-footer>
+</div>

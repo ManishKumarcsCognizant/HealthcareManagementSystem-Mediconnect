@@ -1,27 +1,56 @@
-<app-header></app-header>
+﻿<app-header></app-header>
 
-<div class="heading-text"><b>Doctors List</b></div>
-<small class="subheading-text"><b>(only approved doctors are suggested by the management)</b></small>
-<div class="row">
-        <div *ngFor="let doctor of doctors | async" class="col-4 card" id="bloodCards">
-         <div class="img-block">
-            <div class="circle">
-                <img *ngIf="doctor.gender === 'Male' || doctor.gender === 'male'"  class="bloodimg" [src]="'assets/img/maledoctor.png'" width="100" height="100">
-                <img *ngIf="doctor.gender === 'Female' || doctor.gender === 'female'"  class="bloodimg" [src]="'assets/img/femaledoctor.png'" width="100" height="120">
-            </div>
+<div class="page-wrapper">
+  <div class="section-card">
+    <h3 class="section-heading">Doctor List</h3>
+    <p class="subheading-text">Browse our approved specialists and book an appointment</p>
+
+    <div class="doctor-grid">
+      <div *ngFor="let doctor of doctors | async" class="doctor-card">
+
+        <!-- Avatar -->
+        <div class="doctor-avatar-wrap">
+          <img *ngIf="doctor.gender === 'Male' || doctor.gender === 'male'" [src]="'assets/img/maledoctor.png'" class="doctor-avatar">
+          <img *ngIf="doctor.gender === 'Female' || doctor.gender === 'female'" [src]="'assets/img/femaledoctor.png'" class="doctor-avatar">
+          <img *ngIf="doctor.gender !== 'Male' && doctor.gender !== 'male' && doctor.gender !== 'Female' && doctor.gender !== 'female'" [src]="'assets/img/maledoctor.png'" class="doctor-avatar">
         </div>
-        <div class="card-block">
-            <div class="text"><b style="color: maroon;"> {{doctor.doctorname}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.email}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.experience}} yrs of experience </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.specialization}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.gender}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{doctor.mobile}} </b></div>
+
+        <!-- Name + Specialty -->
+        <div class="doctor-name">{{doctor.doctorname}}</div>
+        <div class="doctor-specialty">{{doctor.specialization}}</div>
+
+        <!-- Status badge -->
+        <span class="badge-active" *ngIf="doctor.status === 'accept'"><i class="fa fa-check-circle"></i>&nbsp;Approved</span>
+        <span class="badge-pending" *ngIf="doctor.status === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Pending</span>
+        <span class="badge-inactive" *ngIf="doctor.status === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Not Approved</span>
+
+        <!-- Divider -->
+        <div class="doctor-divider"></div>
+
+        <!-- Info rows -->
+        <div class="doctor-info-list">
+          <div class="doctor-info-row">
+            <i class="fa fa-briefcase doctor-info-icon"></i>
+            <span>{{doctor.experience}} yrs experience</span>
+          </div>
+          <div class="doctor-info-row">
+            <i class="fa fa-venus-mars doctor-info-icon"></i>
+            <span>{{doctor.gender}}</span>
+          </div>
+          <div class="doctor-info-row">
+            <i class="fa fa-phone doctor-info-icon"></i>
+            <span>{{doctor.mobile}}</span>
+          </div>
+          <div class="doctor-info-row">
+            <i class="fa fa-envelope doctor-info-icon"></i>
+            <span class="doctor-email">{{doctor.email}}</span>
+          </div>
         </div>
-        <div style="border: none;" class="status-btn" *ngIf="doctor.status === 'accept'"><b style="font-style: italic; font-weight: bolder;">Approved Doctor</b></div>
-        <div style="border: none;" class="status-btn1" *ngIf="doctor.status === 'false'"><b style="font-style: italic; font-weight: bolder;">Approval Pending</b></div>
-        <div style="border: none;" class="status-btn2" *ngIf="doctor.status === 'reject'"><b style="font-style: italic; font-weight: bolder;">Not Approved</b></div>
-        </div>
+
+      </div>
+    </div>
+
+  </div>
 </div>
-<br><br><br>
+
 <app-footer></app-footer>

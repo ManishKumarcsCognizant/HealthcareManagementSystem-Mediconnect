@@ -1,77 +1,195 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Volkhov:ital,wght@1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
 
-.container
-{
-    max-width: 700px;
-    padding: 40px 40px 25px 40px;
-    border-radius: 10px; 
-    box-shadow: 5px 5px 35px 8px rgb(147, 158, 147); 
-    background-color: white;
-    margin-top: 2%;
-    margin-bottom: 50px;
+/* ── Page layout ───────────────────────────────────────────── */
+.appt-page {
+  min-height: calc(100vh - 60px);
+  background: #f0f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px 16px 60px;
 }
-input{
-    border-radius: 12px;
-    margin-top: 8px;
+
+/* ── Card ──────────────────────────────────────────────────── */
+.appt-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  width: 100%;
+  max-width: 760px;
+  padding: 28px 32px 32px;
 }
-.textual
-{
-    color: rgb(77, 72, 14); 
-    text-align: center; 
-    margin-top: -20px;
-    font-family: 'Aladin', cursive;
-    padding: 5px;
-    font-weight: bolder;
-    font-size: 28px;
-    text-transform: uppercase;
+
+/* ── Card Header ───────────────────────────────────────────── */
+.appt-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1.5px solid #e8f0fe;
 }
-label{
-    margin-top: 10px;
-    font-family: 'Volkhov', serif;
-    letter-spacing: 0px;
-    font-size: medium;
+.appt-icon-wrap {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, #00695c, #004d40);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
-.registerbtn
-{
-    background-color: transparent;
-    padding-left: 8%;
-    padding-right: 8%;
-    margin: auto;  
-    padding-bottom: 7px;
-    border-radius: 15px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    border: 1px solid black;
+.appt-icon-wrap .fa {
+  font-size: 22px; color: #fff;
 }
-.registerbtn:hover
-{
-    background-color: rgb(23, 78, 78);
-    padding-left: 7%;
-    padding-right: 7%;
-    cursor: pointer;
-    color: white;
+.appt-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: #004d40; margin: 0;
 }
-.message
-{
-    width: 33%;
-    background-color: white;
-    box-shadow: 5px 5px 35px 8px rgb(147, 158, 147); 
-    height: 40%;
-    border-radius: 25px;
-    font-weight: bolder;
-    font-size: larger;
-    color: darkred;
-    font-family: monospace;
-    padding: 20px;
-    margin-left: auto;
-    text-align: center;
-    align-content: center;
-    margin-right: auto;
-    margin-top: 13%;
-    margin-bottom: 10%;
+.appt-subtitle {
+  font-size: 12px; color: #718096; margin: 3px 0 0;
 }
+
+/* ── Section labels ─────────────────────────────────────────── */
+.appt-section-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; font-weight: 700;
+  color: #00695c;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 20px 0 10px;
+  padding-left: 10px;
+  border-left: 3px solid #00695c;
+  display: flex; align-items: center; gap: 7px;
+}
+
+/* ── 2-col grid ─────────────────────────────────────────────── */
+.appt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+}
+
+/* ── Field ──────────────────────────────────────────────────── */
+.appt-field { display: flex; flex-direction: column; }
+.appt-field label {
+  font-size: 12px; font-weight: 600;
+  color: #4a5568; margin-bottom: 4px;
+}
+.appt-field .form-control {
+  font-size: 13px !important;
+  padding: 9px 12px !important;
+  height: auto !important;
+  min-height: 38px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #d8e2f0 !important;
+  background: #fafbff !important;
+  line-height: 1.5 !important;
+}
+.appt-field .form-control:focus {
+  border-color: #00695c !important;
+  box-shadow: 0 0 0 3px rgba(0,105,92,0.10) !important;
+}
+.appt-field-full { grid-column: 1 / -1; }
+
+.req { color: #e53935; margin-left: 2px; }
+.field-err { font-size: 11px; color: #e53935; margin-top: 3px; }
+
+/* ── Info note ──────────────────────────────────────────────── */
+.appt-info-note {
+  margin-top: 20px;
+  background: #e8f5e9;
+  border-left: 3px solid #00695c;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #1b5e20;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Submit Button ──────────────────────────────────────────── */
+.appt-actions {
+  margin-top: 22px;
+  display: flex; justify-content: flex-end;
+}
+.appt-submit-btn {
+  background: linear-gradient(135deg, #00695c, #004d40);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: all 0.2s;
+  box-shadow: 0 3px 12px rgba(0,77,64,0.25);
+}
+.appt-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,77,64,0.32);
+}
+.appt-submit-btn:disabled {
+  opacity: 0.5; cursor: not-allowed; transform: none;
+}
+
+/* ── Message banner ─────────────────────────────────────────── */
+.appt-message {
+  background: #e8f5e9;
+  border-left: 4px solid #00695c;
+  border-radius: 8px;
+  padding: 11px 18px;
+  margin: 0 auto 12px;
+  max-width: 760px;
+  font-size: 13px; color: #1b5e20;
+  font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .appt-card { padding: 18px 14px 22px; }
+  .appt-grid { grid-template-columns: 1fr; }
+  .appt-actions { justify-content: stretch; }
+  .appt-submit-btn { width: 100%; justify-content: center; }
+}
+
+/* ── No Slots Warning ───────────────────────────────────────── */
+.appt-no-slots {
+  background: #fff3e0;
+  border-left: 4px solid #fb8c00;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  color: #e65100;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Error Note ─────────────────────────────────────────────── */
+.appt-error-note {
+  background: #fce4ec;
+  border-left: 4px solid #e53935;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  color: #b71c1c;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Field hint ─────────────────────────────────────────────── */
+.field-hint {
+  font-size: 11px;
+  color: #2e7d32;
+  font-weight: 500;
+  margin-top: 3px;
+  display: block;
+}
+

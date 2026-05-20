@@ -26,7 +26,7 @@ export class AppointmentsComponent implements OnInit {
     this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}'); 
     this.currRole = this.currRole.replace(/"/g, '');
 
-    this.appointments = this._service.getPatientListByDoctorEmailAndDate(this.loggedUser);
+    this.appointments = this._service.getPatientListByDoctorEmail(this.loggedUser);
     this.slots = this._service.getSlotDetails(this.loggedUser);
   }
 

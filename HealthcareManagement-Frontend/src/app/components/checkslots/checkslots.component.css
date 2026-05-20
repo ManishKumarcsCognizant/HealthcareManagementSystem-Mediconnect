@@ -1,63 +1,116 @@
-@import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
 
-.panel-body{
-  margin-left: 1%;
-  margin-right: 2%;
+/* ── Page layout ───────────────────────────────────── */
+.slots-page {
+  min-height: calc(100vh - 60px);
+  background: #f0f4f8;
+  padding: 22px 28px 48px;
+  font-family: "Inter", sans-serif;
 }
-thead{
-  background-color: rgb(67, 97, 20);
-}
-table, td{
-  text-align: center;
+
+/* ── Page header ───────────────────────────────────── */
+.slots-header {
+  display: flex;
   align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.slots-icon {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, #004d40, #00695c);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 18px; flex-shrink: 0;
+}
+.slots-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: #004d40; margin: 0;
+}
+.slots-subtitle {
+  font-size: 11px; color: #718096; margin: 2px 0 0;
+}
+
+/* ── Table wrapper ─────────────────────────────────── */
+.slots-table-wrap {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow-x: auto;
+}
+
+/* ── Table ─────────────────────────────────────────── */
+.slots-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.slots-table thead tr {
+  background: linear-gradient(135deg, #004d40, #00695c);
+}
+.slots-table thead th {
+  color: #fff;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 11.5px;
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+.slots-table tbody tr {
+  border-bottom: 1px solid #f0f4f8;
+  transition: background 0.15s;
+}
+.slots-table tbody tr:nth-child(even) { background: #fafcfb; }
+.slots-table tbody tr:hover { background: #f0faf8; }
+.slots-table tbody td {
+  padding: 9px 14px;
+  color: #4a5568;
   vertical-align: middle;
 }
-table, td, tr{
-  border: 1px solid rgb(163, 161, 161);
-  font-family: serif;
-  font-weight: bold;
-  font-style: normal;
-  font-size: large;
+
+.doc-name { font-weight: 600; color: #1a202c; font-size: 12.5px; }
+.doc-spec  { font-size: 12px; color: #00695c; }
+
+/* ── Date pill ─────────────────────────────────────── */
+.date-pill {
+  display: inline-block;
+  background: #004d40;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-th{
-  text-transform: uppercase;
-  color: white;
-  font-family: Helvetica;
-  font-style: italic;
-  font-size: normal;
+/* ── Slot pills ────────────────────────────────────── */
+.slot-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
 }
-td{
-  text-transform:none;
+.slot-pill.available { background: #e8f5e9; color: #2e7d32; }
+.slot-pill.booked    { background: #fce4ec; color: #c62828; }
+.slot-pill.noslot    { background: #f3f4f6; color: #6b7280; }
+
+/* ── Empty state ───────────────────────────────────── */
+.slots-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #718096;
 }
-.accepted{
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: rgb(30, 116, 30);
-  padding: 5px 10px 5px 10px;
-  color: white;
-  font-weight: bolder;
+.slots-empty .fa {
+  font-size: 34px; color: #b0bec5;
+  margin-bottom: 10px; display: block;
 }
-.pending{
-  border-radius: 10px;
-  background-color: rgb(196, 137, 28);
-  padding: 5px 10px 5px 10px;
-  color: white;
-  font-weight: bolder;
-}
-.datecover{
-  border-radius: 10px;
-  background-color: rgb(10, 15, 68);
-  padding: 5px 10px 5px 10px;
-  color: white;
-  font-weight: bolder;
-}
-.noslot
-{
-  border-radius: 10px;
-  background-color: rgb(128, 26, 26);
-  padding: 5px 10px 5px 10px;
-  color: white;
-  font-weight: bolder;
+.slots-empty p { font-size: 13px; margin: 0; }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .slots-page { padding: 14px 12px 36px; }
 }

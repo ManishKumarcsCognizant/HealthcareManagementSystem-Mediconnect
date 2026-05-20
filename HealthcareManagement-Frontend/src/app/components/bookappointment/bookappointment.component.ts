@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
-import { Slots } from 'src/app/models/slots';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,47 +11,115 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class BookappointmentComponent implements OnInit {
 
-  currRole = '';
   loggedUser = '';
   message = '';
   appointment = new Appointment();
-  slots : Observable<Slots[]> | undefined;
-  doctors : Observable<Slots[]> | undefined;
-  specializations : Observable<Slots[]> | undefined;
-  
-  constructor(private _service : DoctorService, private _router: Router, private userService : UserService) { }
 
-  ngOnInit(): void
-  {
-    this.loggedUser = JSON.stringify(sessionStorage.getItem('loggedUser')|| '{}');
-    this.loggedUser = this.loggedUser.replace(/"/g, '');
+  allDoctors: any[] = [];
+  allSlots: any[] = [];
 
-    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}'); 
-    this.currRole = this.currRole.replace(/"/g, '');
+  uniqueSpecializations: string[] = [];
+  filteredDoctors: any[] = [];
+  availableDates: string[] = [];
+  availableSlots: string[] = [];
 
-    this.doctors = this._service.getSlotListWithUniqueDoctors();
-    this.specializations = this._service.getSlotListWithUniqueSpecializations();
-    this.slots = this._service.getSlotList();
-    
-    $('#messagecard').hide();
+  noSlotsForDoctor = false;
+  loadingSlots = false;
+
+  constructor(private _service: DoctorService, private _router: Router, private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.loggedUser = (sessionStorage.getItem('loggedUser') || '').replace(/"/g, '');
+
+    // Load accepted doctors — handle both 'accept' (from approval flow) and 'Approved' (seeded data)
+    this._service.getDoctorList().subscribe((data: any[]) => {
+      this.allDoctors = data.filter(d => {
+        const s = (d.status || '').toLowerCase().trim();
+        return s === 'accept' || s === 'approved';
+      });
+      this.uniqueSpecializations = [...new Set(this.allDoctors.map(d => d.specialization))];
+    });
+
+    // Load all slots upfront
+    this._service.getSlotList().subscribe((data: any[]) => {
+      this.allSlots = data;
+    });
   }
 
-  bookAppointment()
-  {
+  onSpecializationChange(): void {
+    this.filteredDoctors = this.allDoctors.filter(
+      d => d.specialization === this.appointment.specialization
+    );
+    // Reset downstream
+    this.appointment.doctorname = '';
+    this.appointment.date = '';
+    this.appointment.slot = '';
+    this.availableDates = [];
+    this.availableSlots = [];
+    this.noSlotsForDoctor = false;
+  }
+
+  onDoctorChange(): void {
+    this.appointment.date = '';
+    this.appointment.slot = '';
+    this.availableSlots = [];
+    this.noSlotsForDoctor = false;
+
+    const doctorSlots = this.allSlots.filter(
+      s => s.doctorname === this.appointment.doctorname
+    );
+
+    // Only include dates where at least one slot is available (unbooked/Available + not empty)
+    this.availableDates = doctorSlots
+      .filter(s =>
+        (this.isSlotAvailable(s.amstatus) && s.amslot !== 'empty') ||
+        (this.isSlotAvailable(s.noonstatus) && s.noonslot !== 'empty') ||
+        (this.isSlotAvailable(s.pmstatus) && s.pmslot !== 'empty')
+      )
+      .map(s => s.date);
+
+    this.noSlotsForDoctor = this.availableDates.length === 0;
+  }
+
+  onDateChange(): void {
+    this.appointment.slot = '';
+    this.availableSlots = [];
+
+    const slotEntry = this.allSlots.find(
+      s => s.doctorname === this.appointment.doctorname && s.date === this.appointment.date
+    );
+
+    if (!slotEntry) return;
+
+    if (this.isSlotAvailable(slotEntry.amstatus) && slotEntry.amslot !== 'empty') {
+      this.availableSlots.push('AM slot');
+    }
+    if (this.isSlotAvailable(slotEntry.noonstatus) && slotEntry.noonslot !== 'empty') {
+      this.availableSlots.push('Noon slot');
+    }
+    if (this.isSlotAvailable(slotEntry.pmstatus) && slotEntry.pmslot !== 'empty') {
+      this.availableSlots.push('PM slot');
+    }
+  }
+
+  // Handles 'unbooked', 'Available', 'available' — all mean the slot is free
+  isSlotAvailable(status: string): boolean {
+    const s = (status || '').toLowerCase().trim();
+    return s === 'unbooked' || s === 'available';
+  }
+
+  bookAppointment(): void {
+    this.message = '';
     this.userService.addBookingAppointments(this.appointment).subscribe(
-      data => {
-        console.log("appointment booked Successfully");
-        this._router.navigate(['/userdashboard']);
-      },
+      () => this._router.navigate(['/userdashboard']),
       error => {
-        console.log("process Failed");
-        $('#appointmentform').hide();
-        $('#messagecard').show();
-        this.message = "There is a problem in Booking Your Appointment, Please check slot availability and try again !!!";
-        console.log(error.error);
+        if (error.error && typeof error.error === 'string') {
+          this.message = error.error;
+        } else {
+          this.message = 'Booking failed. Please try again.';
+        }
       }
-    )
+    );
   }
-
-
 }
+

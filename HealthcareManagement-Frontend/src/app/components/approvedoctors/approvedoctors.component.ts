@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+﻿import { Component, OnInit } from '@angular/core';
 import { Doctor } from 'src/app/models/doctor';
 import { DoctorService } from 'src/app/services/doctor.service';
 
@@ -12,39 +11,44 @@ export class ApprovedoctorsComponent implements OnInit {
 
   currRole = '';
   loggedUser = '';
-  doctors : Observable<Doctor[]> | undefined;
-  responses : Observable<any> | undefined;
-  
-  constructor(private _service : DoctorService) { }
+  doctors: Doctor[] = [];
+  actionInProgress: { [email: string]: boolean } = {};
 
-  ngOnInit(): void
-  {
-    this.loggedUser = JSON.stringify(sessionStorage.getItem('loggedUser')|| '{}');
-    this.loggedUser = this.loggedUser.replace(/"/g, '');
+  constructor(private _service: DoctorService) { }
 
-    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}'); 
-    this.currRole = this.currRole.replace(/"/g, '');
-
-    this.doctors = this._service.getDoctorList();
-
+  ngOnInit(): void {
+    this.loggedUser = (sessionStorage.getItem('loggedUser') || '').replace(/"/g, '');
+    this.currRole = (sessionStorage.getItem('ROLE') || '').replace(/"/g, '');
+    this.loadDoctors();
   }
 
-  acceptRequest(curremail : string)
-  {
-    this.responses = this._service.acceptRequestForDoctorApproval(curremail);
-    $("#acceptbtn").hide();
-    $("#rejectbtn").hide();
-    $("#acceptedbtn").show();
-    $("#rejectedbtn").hide();
+  loadDoctors(): void {
+    this._service.getDoctorList().subscribe((data: Doctor[]) => {
+      this.doctors = data;
+    });
   }
 
-  rejectRequest(curremail : string)
-  {
-    this.responses = this._service.rejectRequestForDoctorApproval(curremail);
-    $("#acceptbtn").hide();
-    $("#rejectbtn").hide();
-    $("#acceptedbtn").hide();
-    $("#rejectedbtn").show();
+  acceptRequest(curremail: string): void {
+    this.actionInProgress[curremail] = true;
+    this._service.acceptDoctorApproval(curremail).subscribe({
+      next: () => {
+        const doc = this.doctors.find(d => d.email === curremail);
+        if (doc) doc.status = 'accept';
+        this.actionInProgress[curremail] = false;
+      },
+      error: () => { this.actionInProgress[curremail] = false; }
+    });
   }
 
+  rejectRequest(curremail: string): void {
+    this.actionInProgress[curremail] = true;
+    this._service.rejectDoctorApproval(curremail).subscribe({
+      next: () => {
+        const doc = this.doctors.find(d => d.email === curremail);
+        if (doc) doc.status = 'reject';
+        this.actionInProgress[curremail] = false;
+      },
+      error: () => { this.actionInProgress[curremail] = false; }
+    });
+  }
 }

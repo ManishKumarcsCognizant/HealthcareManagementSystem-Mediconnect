@@ -43,7 +43,6 @@ public class LoginController
     }
     
     @PostMapping("/authenticate")
-    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<String> generateToken(@RequestBody AuthRequest authRequest) throws Exception 
     {
         try 
@@ -69,7 +68,6 @@ public class LoginController
     }
 	
 	@PostMapping("/loginuser")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public User loginUser(@RequestBody User user) throws Exception
 	{
 		String currEmail = user.getEmail();
@@ -88,7 +86,6 @@ public class LoginController
 	}
 	
 	@PostMapping("/logindoctor")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public Doctor loginDoctor(@RequestBody Doctor doctor) throws Exception
 	{
 		String currEmail = doctor.getEmail();

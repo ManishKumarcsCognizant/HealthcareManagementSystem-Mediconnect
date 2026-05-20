@@ -16,53 +16,15 @@ export class LoginComponent implements OnInit {
   msg = "";
   adminEmail = "";
   adminPassword = "";
+  activeTab: 'user' | 'doctor' | 'admin' = 'user';
 
   constructor(private _service : LoginService, private _router : Router) { }
 
-  ngOnInit(): void 
-  {
-    $(".admin-login-form").hide();
-    $(".doctor-login-form").hide();
-    $("#userbtn").css("border", "0");
-    $("#doctorbtn").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("border-left", "1.5px solid rgb(6, 50, 53)").css("opacity", "0.3");;
-    $("#adminbtn").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("opacity", "0.3");
+  ngOnInit(): void {}
 
-    $(".userlogin").click(function(){
-      $(".user-login-form").hide();
-      $(".admin-login-form").show();
-    });
-
-    $("#userbtn").click(function(){
-      $(".user-login-form").show();
-      $(".admin-login-form").hide();
-      $(".doctor-login-form").hide();
-      $("#userbtn").css("border", "0").css("opacity", "1");
-      $("#adminbtn").css("border", "0").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("opacity", "1").css("opacity", "0.3");
-      $("#doctorbtn").css("border", "0").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("border-left", "1.5px solid rgb(6, 50, 53)").css("opacity", "1").css("opacity", "0.3");
-    });
-
-    $("#doctorbtn").click(function(){
-      $(".user-login-form").hide();
-      $(".admin-login-form").hide();
-      $(".doctor-login-form").show();
-      $("#userbtn").css("border", "0").css("border-right", "1.5px solid rgb(6, 50, 53)").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("opacity", "0.3");
-      $("#adminbtn").css("border", "0").css("border-left", "1.5px solid rgb(6, 50, 53)").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("opacity", "0.3");
-      $("#doctorbtn").css("border", "0").css("opacity", "1");
-    });
-
-    $("#adminbtn").click(function(){
-      $(".user-login-form").hide();
-      $(".admin-login-form").show();
-      $(".doctor-login-form").hide();
-      $("#userbtn").css("border", "0").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("opacity", "0.3");
-      $("#adminbtn").css("border", "0").css("opacity", "1");
-      $("#doctorbtn").css("border", "0").css("border-right", "1.5px solid rgb(6, 50, 53)").css("border-bottom", "1.5px solid rgb(6, 50, 53)").css("opacity", "0.3");;
-    });
-    
-    $(".adminlogin").click(function(){
-      $(".user-login-form").show();
-      $(".admin-login-form").hide();
-    });
+  switchTab(tab: 'user' | 'doctor' | 'admin') {
+    this.activeTab = tab;
+    this.msg = '';
   }
 
   loginUser()

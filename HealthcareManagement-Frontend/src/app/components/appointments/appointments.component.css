@@ -1,133 +1,146 @@
-@import url('https://fonts.googleapis.com/css2?family=Aladin&family=Merienda+One&family=Staatliches&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
 
-.row
-  {
-    margin-left: 10%;
-    margin-top: 3%;
-  }
-  #bloodCards
-  {
-    margin-right: 5%;
-    margin-bottom: 4%;
-    border-radius: 15px;
-    padding: 0px;
-    width: 30%;
-    height: 60%;
-    transition: transform .2s;
-    box-shadow: 5px 5px 25px 8px rgb(147, 158, 147);
-  }
-  #bloodCards:hover
-  {
-    transform: scale(1.05);
-    cursor: pointer;
-  }
-.card-block
-{
-  margin-top: 2%;
-  margin-left: 10%;
+/* ── Page layout ───────────────────────────────────── */
+.appts-page {
+  min-height: calc(100vh - 60px);
+  background: #f0f4f8;
+  padding: 22px 28px 48px;
+  font-family: "Inter", sans-serif;
 }
-.text{
-  font-family: serif;
-  font-size: larger;
-  font-weight: bolder;
-  margin-bottom: 1%;
+
+/* ── Page header bar ───────────────────────────────── */
+.appts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
 }
-#searchtxt
-{
-  width: 20%;
-  float: right;
+.appts-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.img-block
-{
-    width: 100%;
-    height: 180px;
-    border-top-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: rgb(192, 56, 56);
-}
-.circle{
-    background-color: rgb(212, 188, 50);
-    margin-left: auto;
-    margin-right: auto;
-    align-content: center;
-    margin-top: 5%;
-    margin-bottom: auto;
-    border-radius: 50%;
-    width: 40%;
-    height: 80%;
-}
-.bloodimg
-{
-    margin-left: 12%;
-    margin-top: 3%;
-}
-.status-btn
-{
-    padding: 5px 30px 5px 30px;
-    background-color: darkgreen;
-    color: white;
-    border-radius: 15px;
-    width: 200px;
-    margin-top: 2%;
-    margin-left: 25%;
-    margin-bottom: 3%;
-}
-.status-btn1
-{
-  background-color: rgb(199, 93, 32);
-  padding: 5px 30px 5px 30px;
-    color: white;
-    border-radius: 15px;
-    width: 200px;
-    margin-top: 2%;
-    margin-left: 25%;
-    margin-bottom: 3%;
-}
-.status-btn2
-{
-  background-color: rgb(187, 40, 40);
-  padding: 5px 30px 5px 30px;
-    color: white;
-    border-radius: 15px;
-    width: 200px;
-    margin-top: 2%;
-    margin-left: 25%;
-    margin-bottom: 3%;
-}
-.heading-text
-{
-    font-weight: bolder;
-    font-size: 40px;
-    margin-top: 1.5%;
-    color: maroon;
-    font-family: 'Aladin', cursive;
-    letter-spacing: 1px;
-    margin-left: 35%;
-}
-.subheading-text
-{
-    font-weight: bolder;
-    font-size: 25px;
-    color: green;
-    font-family: 'Aladin', cursive;
-    letter-spacing: 1px;
-    margin-left: 35%;
-    margin-bottom: 1%;
-}
-.date-cover{
+.appts-icon {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, #004d40, #00695c);
   border-radius: 10px;
-  background-color: rgb(10, 15, 68);
-  padding: 5px 10px 5px 10px;
-  color: white;
-  width: 30%;
-  font-weight: bolder;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 18px;
+  flex-shrink: 0;
 }
-.slotcover
-{
-  border-radius: 10px;
-  background-color: rgb(128, 44, 18);
-  padding: 5px 10px 5px 10px;
-  color: white;
-  width: 30%;
-  font-weight: bolder;
+.appts-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: #004d40; margin: 0;
+}
+.appts-subtitle {
+  font-size: 11px; color: #718096; margin: 2px 0 0;
+}
+
+/* ── Table wrapper ─────────────────────────────────── */
+.appts-table-wrap {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow-x: auto;
+}
+
+/* ── Table ─────────────────────────────────────────── */
+.appts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.appts-table thead tr {
+  background: linear-gradient(135deg, #004d40, #00695c);
+}
+.appts-table thead th {
+  color: #fff;
+  padding: 11px 14px;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  white-space: nowrap;
+}
+.appts-table tbody tr {
+  border-bottom: 1px solid #f0f4f8;
+  transition: background 0.15s;
+}
+.appts-table tbody tr:hover { background: #f0faf8; }
+.appts-table tbody tr:nth-child(even) { background: #fafcfb; }
+.appts-table tbody tr:nth-child(even):hover { background: #f0faf8; }
+.appts-table tbody td {
+  padding: 10px 14px;
+  color: #4a5568;
+  vertical-align: middle;
+}
+
+/* ── Patient cell ──────────────────────────────────── */
+.pt-cell {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.pt-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #e0f2f1;
+  flex-shrink: 0;
+  background: #f0f4f8;
+}
+.pt-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.pt-name { font-weight: 600; color: #1a202c; font-size: 12.5px; }
+.pt-id { font-size: 10.5px; color: #00695c; font-weight: 500; }
+.pt-email { color: #4a5568; font-size: 12px; }
+.pt-minor { color: #718096; font-size: 12px; white-space: nowrap; }
+.pt-problem { max-width: 160px; font-size: 12px; }
+
+/* ── Slot badge ────────────────────────────────────── */
+.slot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #e8f5e9;
+  color: #1b5e20;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Status pills ──────────────────────────────────── */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.status-pill.accepted { background: #e8f5e9; color: #2e7d32; }
+.status-pill.rejected { background: #fce4ec; color: #c62828; }
+.status-pill.pending  { background: #fff8e1; color: #e65100; }
+
+/* ── Empty state ───────────────────────────────────── */
+.appts-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #718096;
+}
+.appts-empty .fa {
+  font-size: 36px;
+  color: #b0bec5;
+  margin-bottom: 10px;
+  display: block;
+}
+.appts-empty p { font-size: 13px; margin: 0; }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .appts-page { padding: 14px 12px 36px; }
 }

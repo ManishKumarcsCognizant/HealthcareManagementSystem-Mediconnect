@@ -65,7 +65,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             .requestMatchers(
                 "/authenticate", "/", "/loginuser", "/logindoctor", "/registerUser", "/registeruser",
                 "/registerdoctor", "/addDoctor", "/getDoctorByEmail/**", "/doctorlist", 
-                "/gettotaldoctors", "/gettotalslots", "/acceptstatus/**", "/rejectstatus/**", 
+                "/gettotaldoctors", "/gettotalslots", "/gettotalusers", "/acceptstatus/**", "/rejectstatus/**", 
                 "/acceptpatient/**", "/rejectpatient/**", "/addBookingSlots", "/doctorlistbyemail/**", 
                 "/slotDetails/**", "/slotDetails", "/slotDetailsWithUniqueDoctors", 
                 "/slotDetailsWithUniqueSpecializations", "/patientlistbydoctoremail/**", 
@@ -89,9 +89,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 @Bean
 public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    // Use .setAllowedOriginPatterns to allow any port on localhost
-    configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "http://127.0.0.1:*"));
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:65363"));
+    // Allow any origin (wildcard pattern works with allowCredentials, sends back actual origin)
+    configuration.setAllowedOriginPatterns(Arrays.asList("*"));
     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(Arrays.asList("*"));
     configuration.setAllowCredentials(true);

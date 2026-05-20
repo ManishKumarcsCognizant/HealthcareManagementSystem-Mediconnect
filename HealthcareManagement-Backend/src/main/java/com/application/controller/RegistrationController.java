@@ -28,8 +28,7 @@ public class RegistrationController
 	private DoctorRegistrationService doctorRegisterService;
 	
 	@PostMapping({"/registerUser", "/registeruser"})
-	@CrossOrigin(origins = "http://localhost:4200")
-	public ResponseEntity<?> registerUser(@RequestBody User user) throws Exception
+	public ResponseEntity<?> registerUser(@RequestBody User user)
 	{
 			String currEmail = user.getEmail();
 			if (currEmail != null) {
@@ -40,18 +39,15 @@ public class RegistrationController
 				User userObj = userRegisterService.fetchUserByEmail(currEmail);
 				if(userObj != null)
 				{
-					throw new Exception("User with "+currEmail+" already exists !!!");
+					return new ResponseEntity<>("User with "+currEmail+" already exists !!!", HttpStatus.CONFLICT);
 				}
 			}
-		System.out.println("here");
-		User userObj = null;
-		userObj = userRegisterService.saveUser(user);
+		User userObj = userRegisterService.saveUser(user);
 		return new ResponseEntity<User>(userObj, HttpStatus.OK);
 	}
 	
 	@PostMapping("/registerdoctor")
-	@CrossOrigin(origins = "http://localhost:4200")
-	public Doctor registerDoctor(@RequestBody Doctor doctor) throws Exception
+	public ResponseEntity<?> registerDoctor(@RequestBody Doctor doctor)
 	{
 			String currEmail = doctor.getEmail();
 			if (currEmail != null) {
@@ -62,16 +58,14 @@ public class RegistrationController
 				Doctor doctorObj = doctorRegisterService.fetchDoctorByEmail(currEmail);
 				if(doctorObj != null)
 				{
-					throw new Exception("Doctor with "+currEmail+" already exists !!!");
+					return new ResponseEntity<>("Doctor with "+currEmail+" already exists !!!", HttpStatus.CONFLICT);
 				}
 			}
-		Doctor doctorObj = null;
-		doctorObj = doctorRegisterService.saveDoctor(doctor);
-		return doctorObj;
+		Doctor doctorObj = doctorRegisterService.saveDoctor(doctor);
+		return new ResponseEntity<Doctor>(doctorObj, HttpStatus.OK);
 	}
 	
 	@PostMapping("/addDoctor")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public Doctor addNewDoctor(@RequestBody Doctor doctor) throws Exception
 	{
 		Doctor doctorObj = null;
@@ -80,7 +74,6 @@ public class RegistrationController
 	}
 	
 	@GetMapping("/gettotalusers")
-	@CrossOrigin(origins = "http://localhost:4200")
 	public ResponseEntity<List<Integer>> getTotalSlots() throws Exception
 	{
 		List<User> users = userRegisterService.getAllUsers();

@@ -1,23 +1,52 @@
-<app-header></app-header>
+﻿<app-header></app-header>
 
-<div class="heading-text"><b>User List</b></div>
-<div class="row">
-    <div  *ngFor="let user of users | async" class="col-4 card" id="bloodCards">
-        <div class="img-block">
-            <div class="circle">
-                <img *ngIf="user.gender === 'Male' || user.gender === 'male'"  class="bloodimg" [src]="'assets/img/maleuser.png'" width="100" height="100">
-                <img *ngIf="user.gender === 'Female' || user.gender === 'female'"  class="bloodimg" [src]="'assets/img/femaleuser.png'" width="100" height="120">
-            </div>
+<div class="ul-page">
+  <div class="ul-card">
+    <div class="ul-header">
+      <div class="ul-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="ul-title">Registered Users</div>
+        <div class="ul-sub">All patient accounts on the platform</div>
+      </div>
+    </div>
+
+    <div class="ul-grid">
+      <div *ngFor="let user of users | async" class="ul-user-card">
+        <div class="ul-avatar-wrap">
+          <img *ngIf="user.gender === 'Male' || user.gender === 'male'"
+               class="ul-avatar" src="assets/img/maleuser.png" alt="user">
+          <img *ngIf="user.gender === 'Female' || user.gender === 'female'"
+               class="ul-avatar" src="assets/img/femaleuser.png" alt="user">
+          <span class="ul-gender-badge" [class.male]="user.gender === 'Male' || user.gender === 'male'"
+                [class.female]="user.gender === 'Female' || user.gender === 'female'">
+            {{user.gender}}
+          </span>
         </div>
-        <div class="card-block">
-            <div class="text"><b style="color: maroon;"> {{user.username}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{user.email}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{user.age}} years </b></div>
-            <div class="text"><b style="color: maroon;"> {{user.gender}} </b></div>
-            <div class="text"><b style="color: maroon;"> {{user.mobile}} </b></div>
+        <div class="ul-info">
+          <div class="ul-name">{{user.username}}</div>
+          <div class="ul-detail">
+            <span class="ul-label">Email</span>
+            <span class="ul-value">{{user.email}}</span>
+          </div>
+          <div class="ul-detail">
+            <span class="ul-label">Age</span>
+            <span class="ul-value">{{user.age}} yrs</span>
+          </div>
+          <div class="ul-detail">
+            <span class="ul-label">Mobile</span>
+            <span class="ul-value">{{user.mobile}}</span>
+          </div>
         </div>
+      </div>
     </div>
   </div>
+</div>
 
-<br><br><br>
 <app-footer></app-footer>

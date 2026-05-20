@@ -1,86 +1,97 @@
 <app-header></app-header>
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2 style="text-align: center; font-family: 'Oswald', sans-serif;color: darkgreen; margin-top: 3%; margin-bottom: 3%;"> Patient List </h2>
+<div class="pl-page">
+  <div class="pl-card">
+
+    <div class="pl-header">
+      <div class="pl-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <div>
+        <div class="pl-title">Patient List</div>
+        <div class="pl-sub">All appointment records across the platform</div>
+      </div>
     </div>
-    <div class="panel-body">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Idendity</th>
-            <th>Patient ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Slot</th>
-            <th>Date</th>
-            <th>Problem</th>
-            <th>Approval</th>
-            <th>Admission</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let patient of patients | async">
-            <td><img *ngIf="patient.gender === 'Male' || patient.gender === 'male'" class="bloodimg" [src]="'assets/img/maleuser.png'" width="80" height="80">
-              <img *ngIf="patient.gender === 'Female' || patient.gender === 'female'" class="bloodimg" [src]="'assets/img/femaleuser.png'" width="80" height="80">
-              </td>
-            <td>
-              <div class="date-cover">{{patient.patientid}}</div>
-            </td>
-            <td>{{patient.patientname}}</td>
-            <td>{{patient.age}} years</td>
-            <td>
-              <div *ngIf="loggedUser === 'admin@gmail.com'">
-                <div class="slotcover">{{patient.slot}}</div>
-              </div>
-                <div *ngFor="let slot of slots | async">
-                    <div *ngIf="patient.slot === 'AM slot' && slot.amstatus === 'booked' && patient.date === slot.date">
-                        <div class="slotcover">{{slot.amslot}}</div>
-                    </div>
-                    <div *ngIf="patient.slot === 'Noon slot' && slot.noonstatus === 'booked' && patient.date === slot.date">
-                        <div class="slotcover">{{slot.noonslot}}</div>
-                    </div>
-                    <div *ngIf="patient.slot === 'PM slot' && slot.pmstatus === 'booked' && patient.date === slot.date">
-                        <div class="slotcover">{{slot.pmslot}}</div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="date-cover">{{patient.date}}</div>
-            </td>
-            <td>{{patient.problem}}</td>
-            <td>
-               <div *ngIf="currRole === 'admin' || currRole === 'ADMIN'">
-                <div *ngIf="patient.appointmentstatus === 'accept'" class="accepted">Accepted</div>
-                <div *ngIf="patient.appointmentstatus === 'false'" class="pending">Pending</div>
-                <div *ngIf="patient.appointmentstatus === 'reject'" class="rejected">Rejected</div>
-              </div>
-                <div *ngIf="patient.appointmentstatus === 'false' && currRole === 'doctor' || currRole === 'DOCTOR'" >
-                    <button (click)="acceptRequest(patient.slot)" id="acceptbtn" value="patient.email" value="Accept" style="margin-bottom: 5px;" class="accepted">Accept</button><br>
-                    <button (click)="rejectRequest(patient.slot)" id="rejectbtn" value="patient.email" value="Reject" class="rejected">Reject</button>
-                    <div id="acceptedbtn" class="accepted" style="display: none;">Accepted</div>
-                    <div id="rejectedbtn" class="rejected" style="display: none;">Rejected</div>
-                  </div>
-                  <div *ngIf="patient.appointmentstatus === 'accept' && currRole === 'doctor' || currRole === 'DOCTOR'" >
-                    <div class="accepted">Accepted</div>
-                  </div>
-                  <div *ngIf="patient.appointmentstatus === 'reject' && currRole === 'doctor' || currRole === 'DOCTOR'" >
-                    <div class="rejected">Rejected</div>
-                  </div>
-                <div *ngFor="let details of responses | async"></div>
-            </td>
-            <td>
-                <div>
-                    <div *ngIf="patient.admissionstatus === 'accept'" class="accepted">Admitted</div>
-                    <div *ngIf="patient.admissionstatus === 'false'" class="pending">Pending</div>
-                    <div *ngIf="patient.admissionstatus === 'reject'" class="rejected">Not Admitted</div>
-                </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+    <div class="table-responsive">
+    <table class="pl-table">
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>ID</th>
+          <th>Age</th>
+          <th>Slot</th>
+          <th>Date</th>
+          <th>Problem</th>
+          <th>Approval</th>
+          <th>Admission</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let patient of patients | async">
+
+          <!-- PATIENT (avatar + name) -->
+          <td>
+            <div class="pt-cell">
+              <img *ngIf="patient.gender === 'Male' || patient.gender === 'male'"
+                   class="pt-avatar" src="assets/img/maleuser.png" alt="patient">
+              <img *ngIf="patient.gender === 'Female' || patient.gender === 'female'"
+                   class="pt-avatar" src="assets/img/femaleuser.png" alt="patient">
+              <span class="pt-name">{{patient.patientname}}</span>
+            </div>
+          </td>
+
+          <!-- PATIENT ID -->
+          <td><span class="id-pill">{{patient.patientid}}</span></td>
+
+          <!-- AGE -->
+          <td>{{patient.age}} years</td>
+
+          <!-- SLOT -->
+          <td>
+            <span class="slot-badge">{{patient.slot}}</span>
+          </td>
+
+          <!-- DATE -->
+          <td><span class="date-pill">{{patient.date}}</span></td>
+
+          <!-- PROBLEM -->
+          <td>{{patient.problem}}</td>
+
+          <!-- APPROVAL COLUMN -->
+          <td>
+            <!-- ADMIN VIEW -->
+            <ng-container *ngIf="currRole === 'admin' || currRole === 'ADMIN'">
+              <span *ngIf="patient.appointmentstatus === 'accept'" class="status-pill accepted">&#10003; Accepted</span>
+              <span *ngIf="patient.appointmentstatus === 'false'" class="status-pill pending">Pending</span>
+              <span *ngIf="patient.appointmentstatus === 'reject'" class="status-pill rejected">&#10007; Rejected</span>
+            </ng-container>
+
+            <!-- DOCTOR VIEW -->
+            <div *ngIf="patient.appointmentstatus === 'false' && (currRole === 'doctor' || currRole === 'DOCTOR')" class="action-btns">
+              <button (click)="acceptRequest(patient)" class="btn-accept">Accept</button>
+              <button (click)="rejectRequest(patient)" class="btn-reject">Reject</button>
+            </div>
+            <span *ngIf="patient.appointmentstatus === 'accept' && (currRole === 'doctor' || currRole === 'DOCTOR')" class="status-pill accepted">&#10003; Accepted</span>
+            <span *ngIf="patient.appointmentstatus === 'reject' && (currRole === 'doctor' || currRole === 'DOCTOR')" class="status-pill rejected">&#10007; Rejected</span>
+          </td>
+
+          <!-- ADMISSION -->
+          <td>
+            <span *ngIf="patient.admissionstatus === 'accept'" class="status-pill accepted">Admitted</span>
+            <span *ngIf="patient.admissionstatus === 'false'" class="status-pill pending">Pending</span>
+            <span *ngIf="patient.admissionstatus === 'reject'" class="status-pill rejected">Not Admitted</span>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
     </div>
   </div>
+</div>
 
-<br><br><br><br><br><br><br><br>
 <app-footer></app-footer>

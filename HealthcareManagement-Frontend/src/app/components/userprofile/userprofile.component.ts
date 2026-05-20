@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,62 +10,52 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserprofileComponent implements OnInit {
 
-  profileDetails : Observable<User[]> | undefined;
-  user: User = new User;
+  currentUser: User = new User();
+  user: User = new User();
   msg = ' ';
   currRole = '';
   loggedUser = '';
   temp = false;
+  isEditing = false;
 
-  constructor(private _service: UserService, private activatedRoute: ActivatedRoute, private _router : Router) { }
+  constructor(private _service: UserService, private activatedRoute: ActivatedRoute, private _router: Router) { }
 
-  ngOnInit(): void 
-  {
-    this.loggedUser = JSON.stringify(sessionStorage.getItem('loggedUser')|| '{}');
-    this.loggedUser = this.loggedUser.replace(/"/g, '');
-
-    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}'); 
-    this.currRole = this.currRole.replace(/"/g, '');
-
-    $("#profilecard").show();
-    $("#profileform").hide();
+  ngOnInit(): void {
+    this.loggedUser = (sessionStorage.getItem('loggedUser') || '').replace(/"/g, '');
+    this.currRole = (sessionStorage.getItem('ROLE') || '').replace(/"/g, '');
     this.getProfileDetails(this.loggedUser);
   }
 
-  editProfile()
-  {
-    $("#profilecard").hide();
-    $("#profileform").show();
+  editProfile() {
+    this.user = { ...this.currentUser };
+    this.isEditing = true;
   }
 
-  getProfileDetails(loggedUser : string)
-  {
-    this.profileDetails = this._service.getProfileDetails(this.loggedUser);
-    console.log(this.profileDetails);
+  cancelEdit() {
+    this.isEditing = false;
   }
 
-  updateUserProfile()
-  {
+  getProfileDetails(loggedUser: string) {
+    this._service.getProfileDetails(loggedUser).subscribe((data: User[]) => {
+      if (data && data.length > 0) {
+        this.currentUser = data[0];
+        this.user = { ...data[0] };
+      }
+    });
+  }
+
+  updateUserProfile() {
     this._service.UpdateUserProfile(this.user).subscribe(
       data => {
-        console.log("UserProfile Updated succesfully");
-        this.msg = "Profile Updated Successfully !!!";
-        $(".editbtn").hide();
-        $("#message").show();
         this.temp = true;
-        $("#profilecard").show();
-        $("#profileform").hide();
-        setTimeout(() => {
-            this._router.navigate(['/userdashboard']);
-          }, 6000);
+        this.currentUser = { ...this.user };
+        this.isEditing = false;
+        setTimeout(() => { this.temp = false; }, 4000);
       },
       error => {
-        console.log("Profile Updation Failed");
-        console.log(error.error);
-        this.msg = "Profile Updation Failed !!!";
+        console.log('Profile update failed', error);
       }
-    )
+    );
   }
-
 
 }

@@ -14,8 +14,6 @@ import { DoctorprofileComponent } from './components/doctorprofile/doctorprofile
 import { LoginComponent } from './components/login/login.component';
 import { PatientlistComponent } from './components/patientlist/patientlist.component';
 import { PrescriptionlistComponent } from './components/prescriptionlist/prescriptionlist.component';
-import { DocumentVaultComponent } from './components/document-vault/document-vault.component';
-import { FeedbackComponent } from './components/feedback/feedback.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { RegistrationsuccessComponent } from './components/registrationsuccess/registrationsuccess.component';
 import { ScheduleslotsComponent } from './components/scheduleslots/scheduleslots.component';
@@ -48,8 +46,6 @@ const routes: Routes = [
   {path:'checkslots',component:CheckslotsComponent,canActivate:[UserGuard]},
   {path:'addprescription',component:AddprescriptionComponent,canActivate:[DoctorGuard]},
   {path:'prescriptionlist',component:PrescriptionlistComponent,canActivate:[UserGuard]},
-  {path:'document-vault',component:DocumentVaultComponent,canActivate:[UserGuard]},
-  {path:'feedback',component:FeedbackComponent,canActivate:[UserGuard]},
   {path:'edituserprofile',component:UserprofileComponent,canActivate:[UserGuard]},
   {path:'editdoctorprofile',component:DoctorprofileComponent,canActivate:[DoctorGuard]}
 ];

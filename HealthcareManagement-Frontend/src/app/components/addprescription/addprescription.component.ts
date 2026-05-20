@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment';
@@ -11,47 +11,60 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './addprescription.component.html',
   styleUrls: ['./addprescription.component.css']
 })
-export class AddprescriptionComponent implements OnInit 
+export class AddprescriptionComponent implements OnInit
 {
   currRole = '';
   loggedUser = '';
   message = '';
+  isSubmitted = false;
+  isError = false;
+  submittedFor = '';
   prescriptionobj = new Prescription();
   appointment : Observable<Appointment[]> | undefined;
 
   constructor(private _service : DoctorService, private _router: Router, private userService : UserService) { }
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
-    this.loggedUser = JSON.stringify(sessionStorage.getItem('loggedUser')|| '{}');
-    this.loggedUser = this.loggedUser.replace(/"/g, '');
+    this.loggedUser = (sessionStorage.getItem('loggedUser') || '').replace(/"/g, '');
+    this.currRole = (sessionStorage.getItem('ROLE') || '').replace(/"/g, '');
 
-    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}'); 
-    this.currRole = this.currRole.replace(/"/g, '');
+    this.appointment = this._service.getPatientListByDoctorEmail(this.loggedUser);
 
-    this.appointment = this._service.getPatientList();
-    $('#messagecard').hide();
+    // Prefill doctor name from profile
+    this._service.getProfileDetails(this.loggedUser).subscribe((data: any[]) => {
+      if (data && data.length > 0) {
+        this.prescriptionobj.doctorname = data[0].doctorname || '';
+      }
+    });
   }
 
   addPrescription()
   {
     this._service.addPrescriptions(this.prescriptionobj).subscribe(
       data => {
-        console.log("Prescriptions added Successfully");
-        this.message = "Your prescription added successfully, Please check the patient's admission status!!!";
-        $('#appointmentform').hide();
-        $('#messagecard').show();
-        setTimeout(() => {
-          this._router.navigate(['/doctordashboard']);
-        }, 5000);
+        this.submittedFor = this.prescriptionobj.patientname;
+        this.isSubmitted = true;
+        this.isError = false;
+        this.message = 'Prescription added successfully for ' + this.submittedFor;
+        setTimeout(() => { this._router.navigate(['/doctordashboard']); }, 6000);
       },
       error => {
-        console.log("process Failed");
-        this.message = "There is a problem in  YouAdding your prescription, Please try again !!!";
-        $('#appointmentform').hide();
-        $('#messagecard').show();
+        this.isError = true;
+        this.isSubmitted = true;
+        this.message = 'Failed to add prescription. Please try again.';
         console.log(error.error);
       }
-    )
+    );
+  }
+
+  addAnother() {
+    this.isSubmitted = false;
+    this.isError = false;
+    this.message = '';
+    this.prescriptionobj = new Prescription();
+    this._service.getProfileDetails(this.loggedUser).subscribe((data: any[]) => {
+      if (data && data.length > 0) this.prescriptionobj.doctorname = data[0].doctorname || '';
+    });
   }
 }
