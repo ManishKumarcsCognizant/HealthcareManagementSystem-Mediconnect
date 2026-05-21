@@ -1,5 +1,6 @@
 export class Appointment 
 {
+    id : number = 0;
     patientname : string = '';
     patientid : string = '';
     email : string = '';
@@ -11,7 +12,7 @@ export class Appointment
     problem : string = '';
     slot : string = '';
     appointmentstatus : string = 'false';
-    admissionstatus : string = 'false';
+    treatmentstatus : string = 'false';
 
     constructor() {}
 }

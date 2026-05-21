@@ -27,7 +27,7 @@
           <th>Date</th>
           <th>Problem</th>
           <th>Approval</th>
-          <th>Admission</th>
+          <th>Treatment</th>
         </tr>
       </thead>
 
@@ -64,27 +64,50 @@
 
           <!-- APPROVAL COLUMN -->
           <td>
-            <!-- ADMIN VIEW -->
+            <!-- ADMIN VIEW: read-only status badge -->
             <ng-container *ngIf="currRole === 'admin' || currRole === 'ADMIN'">
               <span *ngIf="patient.appointmentstatus === 'accept'" class="status-pill accepted">&#10003; Accepted</span>
               <span *ngIf="patient.appointmentstatus === 'false'" class="status-pill pending">Pending</span>
               <span *ngIf="patient.appointmentstatus === 'reject'" class="status-pill rejected">&#10007; Rejected</span>
             </ng-container>
 
-            <!-- DOCTOR VIEW -->
-            <div *ngIf="patient.appointmentstatus === 'false' && (currRole === 'doctor' || currRole === 'DOCTOR')" class="action-btns">
-              <button (click)="acceptRequest(patient)" class="btn-accept">Accept</button>
-              <button (click)="rejectRequest(patient)" class="btn-reject">Reject</button>
-            </div>
-            <span *ngIf="patient.appointmentstatus === 'accept' && (currRole === 'doctor' || currRole === 'DOCTOR')" class="status-pill accepted">&#10003; Accepted</span>
-            <span *ngIf="patient.appointmentstatus === 'reject' && (currRole === 'doctor' || currRole === 'DOCTOR')" class="status-pill rejected">&#10007; Rejected</span>
+            <!-- DOCTOR VIEW: action buttons for pending, update dropdown for processed -->
+            <ng-container *ngIf="currRole === 'doctor' || currRole === 'DOCTOR'">
+
+              <!-- Pending: show Accept / Reject buttons -->
+              <div *ngIf="patient.appointmentstatus === 'false'" class="action-btns">
+                <button (click)="acceptRequest(patient)" class="btn-accept">&#10003; Accept</button>
+                <button (click)="rejectRequest(patient)" class="btn-reject">&#10007; Reject</button>
+              </div>
+
+              <!-- Accepted: show badge + Update dropdown -->
+              <div *ngIf="patient.appointmentstatus === 'accept'" class="status-update-row">
+                <span class="status-pill accepted">&#10003; Accepted</span>
+                <select class="status-select" (change)="updateAppointmentStatus(patient, $any($event.target).value)">
+                  <option value="" disabled selected>Update</option>
+                  <option value="reject">&#10007; Reject</option>
+                  <option value="false">Reset to Pending</option>
+                </select>
+              </div>
+
+              <!-- Rejected: show badge + Update dropdown -->
+              <div *ngIf="patient.appointmentstatus === 'reject'" class="status-update-row">
+                <span class="status-pill rejected">&#10007; Rejected</span>
+                <select class="status-select" (change)="updateAppointmentStatus(patient, $any($event.target).value)">
+                  <option value="" disabled selected>Update</option>
+                  <option value="accept">&#10003; Accept</option>
+                  <option value="false">Reset to Pending</option>
+                </select>
+              </div>
+
+            </ng-container>
           </td>
 
-          <!-- ADMISSION -->
+          <!-- TREATMENT STATUS -->
           <td>
-            <span *ngIf="patient.admissionstatus === 'accept'" class="status-pill accepted">Admitted</span>
-            <span *ngIf="patient.admissionstatus === 'false'" class="status-pill pending">Pending</span>
-            <span *ngIf="patient.admissionstatus === 'reject'" class="status-pill rejected">Not Admitted</span>
+            <span *ngIf="patient.treatmentstatus === 'accept'" class="status-pill accepted">&#10003; Treated</span>
+            <span *ngIf="patient.treatmentstatus === 'false'" class="status-pill pending">Not Yet Treated</span>
+            <span *ngIf="patient.treatmentstatus === 'reject'" class="status-pill rejected">&#10007; Not Treated</span>
           </td>
 
         </tr>

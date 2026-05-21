@@ -17,6 +17,8 @@ export class RegistrationComponent implements OnInit {
   msg = ' ';
   confirmPassword = '';
   confirmDoctorPassword = '';
+  confirmPasswordBlurred = false;
+  confirmDoctorPasswordBlurred = false;
   activeTab: 'user' | 'doctor' = 'user';
 
   constructor(private _registrationService : RegistrationService, private _doctorService : DoctorService, private _router : Router) { }
@@ -26,10 +28,16 @@ export class RegistrationComponent implements OnInit {
   switchTab(tab: 'user' | 'doctor') {
     this.activeTab = tab;
     this.msg = ' ';
+    this.confirmPasswordBlurred = false;
+    this.confirmDoctorPasswordBlurred = false;
   }
 
   registerUser()
   {
+    if (this.user.password !== this.confirmPassword) {
+      this.msg = 'Passwords do not match. Please re-enter.';
+      return;
+    }
     this._registrationService.registerUserFromRemote(this.user).subscribe(
       data => {
         console.log("Registration Success");
@@ -54,6 +62,10 @@ export class RegistrationComponent implements OnInit {
 
   registerDoctor()
   {
+    if (this.doctor.password !== this.confirmDoctorPassword) {
+      this.msg = 'Passwords do not match. Please re-enter.';
+      return;
+    }
     this._registrationService.registerDoctorFromRemote(this.doctor).subscribe(
       data => {
         console.log("Registration Success");

@@ -56,9 +56,14 @@
             </div>
             <div class="form-group">
               <label>Gender <b class="text-danger">*</b></label>
-              <input type="text" class="form-control" placeholder="male / female" name="usergender"
+              <select class="form-control" name="usergender"
                 [(ngModel)]="user.gender" required #usergender="ngModel"
                 [class.is-invalid]="usergender.invalid && usergender.touched">
+                <option value="" disabled selected>Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
               <small class="text-danger" *ngIf="usergender.invalid && usergender.touched">Required</small>
             </div>
             <div class="form-group">
@@ -93,14 +98,15 @@
               <label>Confirm Password <b class="text-danger">*</b></label>
               <input type="password" class="form-control" placeholder="Re-enter password" name="ConfirmPassword"
                 [(ngModel)]="confirmPassword" required #userconfirmPassword="ngModel"
-                [class.is-invalid]="userconfirmPassword.touched && userconfirmPassword.value !== userpassword.value">
-              <small class="text-danger" *ngIf="userconfirmPassword.touched && userconfirmPassword.value !== userpassword.value">Passwords do not match</small>
+                (blur)="confirmPasswordBlurred = true"
+                [class.is-invalid]="confirmPasswordBlurred && confirmPassword !== user.password">
+              <small class="text-danger" *ngIf="confirmPasswordBlurred && confirmPassword !== user.password">Passwords do not match</small>
             </div>
           </div>
           <div class="reg-terms">
             <input type="checkbox" name="remember" required> I agree to all Terms &amp; Conditions
           </div>
-          <button [disabled]="userform.form.invalid" type="submit" class="reg-submit-btn">Create Account</button>
+          <button [disabled]="userform.form.invalid || user.password !== confirmPassword" type="submit" class="reg-submit-btn">Create Account</button>
         </form>
       </div>
 
@@ -126,9 +132,14 @@
             </div>
             <div class="form-group">
               <label>Gender <b class="text-danger">*</b></label>
-              <input type="text" class="form-control" placeholder="male / female" name="doctorgender"
+              <select class="form-control" name="doctorgender"
                 [(ngModel)]="doctor.gender" required #doctorgender="ngModel"
                 [class.is-invalid]="doctorgender.invalid && doctorgender.touched">
+                <option value="" disabled selected>Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
               <small class="text-danger" *ngIf="doctorgender.invalid && doctorgender.touched">Required</small>
             </div>
             <div class="form-group">
@@ -177,14 +188,15 @@
               <label>Confirm Password <b class="text-danger">*</b></label>
               <input type="password" class="form-control" placeholder="Re-enter password" name="ConfirmPassword"
                 [(ngModel)]="confirmDoctorPassword" required #doctorconfirmPassword="ngModel"
-                [class.is-invalid]="doctorconfirmPassword.touched && doctorconfirmPassword.value !== doctorpassword.value">
-              <small class="text-danger" *ngIf="doctorconfirmPassword.touched && doctorconfirmPassword.value !== doctorpassword.value">Passwords do not match</small>
+                (blur)="confirmDoctorPasswordBlurred = true"
+                [class.is-invalid]="confirmDoctorPasswordBlurred && confirmDoctorPassword !== doctor.password">
+              <small class="text-danger" *ngIf="confirmDoctorPasswordBlurred && confirmDoctorPassword !== doctor.password">Passwords do not match</small>
             </div>
           </div>
           <div class="reg-terms">
             <input type="checkbox" name="remember" required> I agree to all Terms &amp; Conditions
           </div>
-          <button [disabled]="doctorform.form.invalid" type="submit" class="reg-submit-btn">Create Account</button>
+          <button [disabled]="doctorform.form.invalid || doctor.password !== confirmDoctorPassword" type="submit" class="reg-submit-btn">Create Account</button>
         </form>
       </div>
 

@@ -181,6 +181,13 @@ public class DoctorController
 		return new ResponseEntity<List<Appointments>>(patients, HttpStatus.OK);
 	}
 	
+	@PutMapping("/updateAppointmentStatus/{id}/{status}")
+	public ResponseEntity<String> updateAppointmentStatus(@PathVariable int id, @PathVariable String status) throws Exception
+	{
+		appointmentBookingService.updateAppointmentStatus(id, status);
+		return new ResponseEntity<>("Status updated to " + status, HttpStatus.OK);
+	}
+
 	@PostMapping("/addPrescription")
 	public ResponseEntity<Prescription> addNewPrescription(@RequestBody Prescription prescription) throws Exception
 	{

@@ -116,18 +116,16 @@ export class DoctorService {
     return this._http.get<any>(`${NAV_URL}/rejectstatus/` + email);
   }
 
-public acceptRequestForPatientApproval(patient: any): Observable<any> {
-  return this._http.put<any>(
-    `${NAV_URL}/api/appointments/accept`,
-    patient
-  );
+public acceptRequestForPatientApproval(id: number): Observable<any> {
+  return this._http.put<any>(`${NAV_URL}/updateAppointmentStatus/${id}/accept`, {}, { responseType: 'text' as 'json' });
 }
 
-public rejectRequestForPatientApproval(patient: any): Observable<any> {
-  return this._http.put<any>(
-    `${NAV_URL}/api/appointments/reject`,
-    patient
-  );
+public rejectRequestForPatientApproval(id: number): Observable<any> {
+  return this._http.put<any>(`${NAV_URL}/updateAppointmentStatus/${id}/reject`, {}, { responseType: 'text' as 'json' });
+}
+
+public updateAppointmentStatus(id: number, status: string): Observable<any> {
+  return this._http.put<any>(`${NAV_URL}/updateAppointmentStatus/${id}/${status}`, {}, { responseType: 'text' as 'json' });
 }
 
   /**

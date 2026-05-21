@@ -53,10 +53,10 @@
           </div>
 
           <div class="rx-admission-row">
-            <span class="rx-lbl">Admission Status:</span>
-            <span class="badge-pending" *ngIf="rx.admissionstatus === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Pending</span>
-            <span class="badge-active" *ngIf="rx.admissionstatus === 'accept'"><i class="fa fa-hospital-o"></i>&nbsp;Admitted</span>
-            <span class="badge-inactive" *ngIf="rx.admissionstatus === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Rejected</span>
+            <span class="rx-lbl">Treatment Status:</span>
+            <span class="badge-pending" *ngIf="rx.treatmentstatus === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Not Yet Treated</span>
+            <span class="badge-active" *ngIf="rx.treatmentstatus === 'accept'"><i class="fa fa-check-circle"></i>&nbsp;Treated</span>
+            <span class="badge-inactive" *ngIf="rx.treatmentstatus === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Not Treated</span>
           </div>
 
           <div class="rx-footer-note">

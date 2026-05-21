@@ -5,8 +5,33 @@
     <h3 class="section-heading">Doctor List</h3>
     <p class="subheading-text">Browse our approved specialists and book an appointment</p>
 
+    <!-- SEARCH BAR -->
+    <div class="search-bar-wrap">
+      <div class="search-input-box">
+        <i class="fa fa-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search by doctor name or specialization..."
+          [(ngModel)]="searchQuery"
+          (input)="onSearch()"
+        />
+        <button *ngIf="searchQuery" class="search-clear-btn" (click)="clearSearch()" title="Clear">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <span class="search-count">{{ filteredDoctors.length }} doctor{{ filteredDoctors.length !== 1 ? 's' : '' }} found</span>
+    </div>
+
+    <!-- NO RESULTS -->
+    <div *ngIf="filteredDoctors.length === 0" class="no-results">
+      <i class="fa fa-user-md no-results-icon"></i>
+      <p>No doctors found for <strong>"{{ searchQuery }}"</strong></p>
+      <button class="btn-clear-search" (click)="clearSearch()">Clear Search</button>
+    </div>
+
     <div class="doctor-grid">
-      <div *ngFor="let doctor of doctors | async" class="doctor-card">
+      <div *ngFor="let doctor of filteredDoctors" class="doctor-card">
 
         <!-- Avatar -->
         <div class="doctor-avatar-wrap">

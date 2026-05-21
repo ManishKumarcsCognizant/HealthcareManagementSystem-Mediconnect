@@ -59,7 +59,7 @@
               <th>Date</th>
               <th>Problem</th>
               <th>Approval</th>
-              <th>Admission</th>
+              <th>Treatment</th>
             </tr>
           </thead>
           <tbody>
@@ -80,9 +80,9 @@
                 <span class="badge-inactive" *ngIf="patient.appointmentstatus === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Rejected</span>
               </td>
               <td>
-                <span class="badge-active" *ngIf="patient.admissionstatus === 'accept'"><i class="fa fa-hospital-o"></i>&nbsp;Admitted</span>
-                <span class="badge-pending" *ngIf="patient.admissionstatus === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Pending</span>
-                <span class="badge-inactive" *ngIf="patient.admissionstatus === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Not Admitted</span>
+                <span class="badge-active" *ngIf="patient.treatmentstatus === 'accept'"><i class="fa fa-check-circle"></i>&nbsp;Treated</span>
+                <span class="badge-pending" *ngIf="patient.treatmentstatus === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Not Yet Treated</span>
+                <span class="badge-inactive" *ngIf="patient.treatmentstatus === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Not Treated</span>
               </td>
             </tr>
           </tbody>

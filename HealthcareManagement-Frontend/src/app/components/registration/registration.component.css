@@ -37,9 +37,11 @@
 /* Fields grid */
 .reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
 .form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
-.form-control { width: 100%; padding: 10px 13px; border: 2px solid #e0e0e0; border-radius: 9px; font-size: 14px; font-family: 'Inter', sans-serif; color: #333; outline: none; transition: border-color 0.2s; }
+.form-control { width: 100%; padding: 10px 13px; border: 2px solid #e0e0e0; border-radius: 9px; font-size: 14px; font-family: 'Inter', sans-serif; color: #333; background-color: #fff; outline: none; transition: border-color 0.2s; box-sizing: border-box; }
 .form-control:focus { border-color: #00695c; box-shadow: 0 0 0 3px rgba(0,105,92,0.1); }
 .form-control.is-invalid { border-color: #e53935; }
+select.form-control { appearance: auto; -webkit-appearance: auto; color: #333; background-color: #fff; cursor: pointer; height: 44px; padding-top: 0; padding-bottom: 0; line-height: 44px; }
+select.form-control option { color: #333; background-color: #fff; font-size: 14px; padding: 6px; }
 .field-hint { display: block; font-size: 11px; color: #999; margin-top: 3px; }
 
 /* Terms */

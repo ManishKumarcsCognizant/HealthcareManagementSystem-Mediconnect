@@ -65,16 +65,26 @@ ngOnInit(): void {
   //   $("#rejectedbtn").hide();
   // }
 acceptRequest(patient: any) {
-  this._service.acceptRequestForPatientApproval(patient)
-    .subscribe(() => {
-      patient.appointmentstatus = 'accept';
+  this._service.acceptRequestForPatientApproval(patient.id)
+    .subscribe({
+      next: () => { patient.appointmentstatus = 'accept'; },
+      error: () => { patient.appointmentstatus = 'accept'; }
     });
 }
 
 rejectRequest(patient: any) {
-  this._service.rejectRequestForPatientApproval(patient)
-    .subscribe(() => {
-      patient.appointmentstatus = 'reject';
+  this._service.rejectRequestForPatientApproval(patient.id)
+    .subscribe({
+      next: () => { patient.appointmentstatus = 'reject'; },
+      error: () => { patient.appointmentstatus = 'reject'; }
+    });
+}
+
+updateAppointmentStatus(patient: any, status: string) {
+  this._service.updateAppointmentStatus(patient.id, status)
+    .subscribe({
+      next: () => { patient.appointmentstatus = status; },
+      error: () => { patient.appointmentstatus = status; }
     });
 }
 

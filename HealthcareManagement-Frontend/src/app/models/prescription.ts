@@ -8,5 +8,5 @@ export class Prescription
     age : string = '';
     date : string = '';
     prescription : string = '';
-    admissionstatus : string = 'false';
+    treatmentstatus : string = 'false';
 }

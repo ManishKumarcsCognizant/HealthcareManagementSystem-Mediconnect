@@ -90,4 +90,9 @@ public class AppointmentBookingService
     {
 		appointmentsRepository.UpdatePatientid(patientID, doctorname, patientname, date);
 	}
+
+	public void updateAppointmentStatus(int id, String status)
+	{
+		appointmentsRepository.updateAppointmentStatusById(id, status);
+	}
 }

@@ -22,14 +22,14 @@ public class Appointments
 	private String problem;
 	private String slot;
 	private String appointmentstatus;
-	private String admissionstatus;
+	private String treatmentstatus;
 	
 	public Appointments() 
 	{
 		super();
 	}
 
-	public Appointments(int id,String patientid, String patientname, String email, String doctorname, String specialization, String date, String age, String gender, String problem, String slot, String appointmentstatus, String admissionstatus) 
+	public Appointments(int id,String patientid, String patientname, String email, String doctorname, String specialization, String date, String age, String gender, String problem, String slot, String appointmentstatus, String treatmentstatus) 
 	{
 		super();
 		this.id = id;
@@ -44,7 +44,7 @@ public class Appointments
 		this.problem = problem;
 		this.slot = slot;
 		this.appointmentstatus = appointmentstatus;
-		this.admissionstatus = admissionstatus;
+		this.treatmentstatus = treatmentstatus;
 	}
 
 	public int getId() {
@@ -143,12 +143,12 @@ public class Appointments
 		this.appointmentstatus = appointmentstatus;
 	}
 
-	public String getAdmissionstatus() {
-		return admissionstatus;
+	public String getTreatmentstatus() {
+		return treatmentstatus;
 	}
 
-	public void setAdmissionstatus(String admissionstatus) {
-		this.admissionstatus = admissionstatus;
+	public void setTreatmentstatus(String treatmentstatus) {
+		this.treatmentstatus = treatmentstatus;
 	}
 
 }

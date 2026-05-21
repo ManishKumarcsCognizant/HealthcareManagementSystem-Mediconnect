@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Doctor } from 'src/app/models/doctor';
 import { DoctorService } from 'src/app/services/doctor.service';
 
@@ -10,13 +9,34 @@ import { DoctorService } from 'src/app/services/doctor.service';
 })
 export class DoctorlistComponent implements OnInit {
 
-  doctors : Observable<Doctor[]> | undefined;
+  allDoctors: Doctor[] = [];
+  filteredDoctors: Doctor[] = [];
+  searchQuery: string = '';
 
-  constructor(private _service : DoctorService) { }
+  constructor(private _service: DoctorService) { }
 
-  ngOnInit(): void
-  {
-    this.doctors = this._service.getDoctorList();
+  ngOnInit(): void {
+    this._service.getDoctorList().subscribe((data: Doctor[]) => {
+      this.allDoctors = data;
+      this.filteredDoctors = data;
+    });
+  }
+
+  onSearch(): void {
+    const q = this.searchQuery.trim().toLowerCase();
+    if (!q) {
+      this.filteredDoctors = this.allDoctors;
+    } else {
+      this.filteredDoctors = this.allDoctors.filter(d =>
+        d.doctorname.toLowerCase().includes(q) ||
+        d.specialization.toLowerCase().includes(q)
+      );
+    }
+  }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.filteredDoctors = this.allDoctors;
   }
 
 }

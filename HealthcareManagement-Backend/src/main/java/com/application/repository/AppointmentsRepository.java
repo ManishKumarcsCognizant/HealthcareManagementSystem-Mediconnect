@@ -35,5 +35,10 @@ public interface AppointmentsRepository extends CrudRepository<Appointments,Inte
 	@Modifying
 	@Query(value = "update appointments set patientid = ?1 where doctorname = ?2 and patientname = ?3 and date = ?4", nativeQuery = true)
 	public void UpdatePatientid(String patientID, String doctorname, String patientname, String date);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update appointments set appointmentstatus = ?2 where id = ?1", nativeQuery = true)
+	public void updateAppointmentStatusById(int id, String status);
 	
 }

@@ -73,7 +73,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                 "/patientlistbydoctoremailanddate/**", "/userlist", "/getprescriptionbyname/**", 
                 "/patientlistbyemail/**", "/patientlist", "/gettotalpatients", 
                 "/gettotalappointments", "/gettotalprescriptions", "/profileDetails/**", 
-                "/updateuser", "/bookNewAppointment"
+                "/updateuser", "/bookNewAppointment", "/updateAppointmentStatus/**"
             ).permitAll()
             .anyRequest().authenticated())
         .exceptionHandling(exception -> exception.accessDeniedHandler(new AccessDeniedHandlerImpl()))
