@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.model.Admin;
+import com.application.model.AuthResponse;
 import com.application.service.AdminService;
+import com.application.util.JwtUtils;
 
 @RestController
 public class AdminController
@@ -18,6 +20,9 @@ public class AdminController
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private JwtUtils jwtUtils;
 
 	@PostMapping("/registeradmin")
 	public ResponseEntity<?> registerAdmin(@RequestBody Admin adminRequest)
@@ -55,6 +60,16 @@ public class AdminController
 			return new ResponseEntity<>("Invalid admin credentials", HttpStatus.UNAUTHORIZED);
 		}
 
-		return new ResponseEntity<>(admin, HttpStatus.OK);
+		String token = jwtUtils.generateToken(admin.getEmail());
+		AuthResponse response = new AuthResponse(
+			token,
+			admin.getEmail(),
+			admin.getAdminname(),
+			"admin",
+			null,
+			null,
+			null
+		);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 }

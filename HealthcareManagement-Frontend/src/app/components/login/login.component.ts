@@ -91,9 +91,6 @@ export class LoginComponent implements OnInit {
     this._service.adminLoginFromRemote(this.adminEmail, this.adminPassword).subscribe(
       (data: any) => {
         localStorage.setItem('loggedUser', this.adminEmail);
-        localStorage.setItem('USER', 'admin');
-        localStorage.setItem('ROLE', 'admin');
-        localStorage.setItem('name', data.adminname || 'Admin');
         localStorage.setItem('gender', 'male');
         this._router.navigate(['/admindashboard']);
       },

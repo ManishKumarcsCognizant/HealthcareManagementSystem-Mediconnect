@@ -61,20 +61,39 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
+            // Allow all preflight requests
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .requestMatchers(
-                "/authenticate", "/", "/loginuser", "/logindoctor", "/registerUser", "/registeruser",
-                "/registerdoctor", "/addDoctor", "/getDoctorByEmail/**", "/doctorlist", 
-                "/gettotaldoctors", "/gettotalslots", "/gettotalusers", "/acceptstatus/**", "/rejectstatus/**", 
-                "/acceptpatient/**", "/rejectpatient/**", "/addBookingSlots", "/doctorlistbyemail/**", 
-                "/slotDetails/**", "/slotDetails", "/slotDetailsWithUniqueDoctors", 
-                "/slotDetailsWithUniqueSpecializations", "/patientlistbydoctoremail/**", 
-                "/addPrescription", "/doctorProfileDetails/**", "/updatedoctor", 
-                "/patientlistbydoctoremailanddate/**", "/userlist", "/getprescriptionbyname/**", 
-                "/patientlistbyemail/**", "/patientlist", "/gettotalpatients", 
-                "/gettotalappointments", "/gettotalprescriptions", "/profileDetails/**", 
-                "/updateuser", "/bookNewAppointment", "/updateAppointmentStatus/**", "/loginadmin", "/registeradmin"
+            // Public auth endpoints
+            .requestMatchers("/", "/authenticate",
+                "/loginuser", "/logindoctor", "/loginadmin",
+                "/registerUser", "/registeruser", "/registerdoctor", "/registeradmin"
             ).permitAll()
+            // Public read-only data (needed before login for browsing doctors/slots)
+            .requestMatchers(
+                "/doctorlist", "/getDoctorByEmail/**",
+                "/slotDetails/**", "/slotDetailsWithUniqueDoctors", "/slotDetailsWithUniqueSpecializations",
+                "/gettotaldoctors", "/gettotalslots", "/gettotalusers",
+                "/gettotalpatients", "/gettotalappointments", "/gettotalprescriptions"
+            ).permitAll()
+            // Admin-only endpoints
+            .requestMatchers(
+                "/userlist", "/patientlist",
+                "/acceptstatus/**", "/rejectstatus/**",
+                "/acceptpatient/**", "/rejectpatient/**",
+                "/addDoctor", "/approvedoctors"
+            ).hasRole("ADMIN")
+            // Doctor-only endpoints
+            .requestMatchers(
+                "/addBookingSlots", "/updateAppointmentStatus/**",
+                "/patientlistbydoctoremail/**", "/patientlistbydoctoremailanddate/**",
+                "/addPrescription", "/doctorProfileDetails/**", "/updatedoctor"
+            ).hasRole("DOCTOR")
+            // User-only endpoints
+            .requestMatchers(
+                "/bookNewAppointment", "/patientlistbyemail/**",
+                "/profileDetails/**", "/updateuser", "/getprescriptionbyname/**"
+            ).hasRole("USER")
+            // Any other request requires a valid JWT (any role)
             .anyRequest().authenticated())
         .exceptionHandling(exception -> exception.accessDeniedHandler(new AccessDeniedHandlerImpl()))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

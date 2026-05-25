@@ -82,7 +82,19 @@ export class LoginService {
   }
 
   public adminLoginFromRemote(email: string, password: string): Observable<any> {
-    return this._http.post<any>(`${NAV_URL}/loginadmin`, { email, password });
+    return this._http.post<any>(`${NAV_URL}/loginadmin`, { email, password }).pipe(
+      map(data => {
+        localStorage.setItem('USER', email);
+        localStorage.setItem('ROLE', 'admin');
+        if (data && data.token) {
+          localStorage.setItem('TOKEN', `Bearer ${data.token}`);
+          localStorage.setItem('name', data.name || 'Admin');
+        } else {
+          localStorage.removeItem('TOKEN');
+        }
+        return data;
+      })
+    );
   }
 
 }
