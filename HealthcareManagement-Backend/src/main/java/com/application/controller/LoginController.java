@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.model.AuthRequest;
-import com.application.model.AuthResponse;
+import com.application.model.UserAuthResponse;
+import com.application.model.DoctorAuthResponse;
 import com.application.model.Doctor;
 import com.application.model.User;
 import com.application.service.DoctorRegistrationService;
@@ -95,15 +96,15 @@ public class LoginController
 		// Generate a fresh JWT for this login session
 		String token = jwtUtil.generateToken(userObj.getEmail());
 
-		// Return the unified AuthResponse — same shape as registration response
-		AuthResponse response = new AuthResponse(
+		UserAuthResponse response = new UserAuthResponse(
 			token,
 			userObj.getEmail(),
 			userObj.getUsername(),
 			"user",
 			userObj.getGender(),
 			userObj.getAge(),
-			null
+			userObj.getMobile(),
+			userObj.getAddress()
 		);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -131,15 +132,18 @@ public class LoginController
 		// Generate a fresh JWT for this login session
 		String token = jwtUtil.generateToken(doctorObj.getEmail());
 
-		// Return the unified AuthResponse — same shape as registration response
-		AuthResponse response = new AuthResponse(
+		DoctorAuthResponse response = new DoctorAuthResponse(
 			token,
 			doctorObj.getEmail(),
 			doctorObj.getDoctorname(),
 			"doctor",
 			doctorObj.getGender(),
-			null,
-			doctorObj.getSpecialization()
+			doctorObj.getSpecialization(),
+			doctorObj.getExperience(),
+			doctorObj.getPrevioushospital(),
+			doctorObj.getMobile(),
+			doctorObj.getAddress(),
+			doctorObj.getStatus()
 		);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

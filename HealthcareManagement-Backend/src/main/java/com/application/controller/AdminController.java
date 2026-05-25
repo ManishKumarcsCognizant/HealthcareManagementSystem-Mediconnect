@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.application.model.Admin;
-import com.application.model.AuthResponse;
+import com.application.model.AdminAuthResponse;
 import com.application.service.AdminService;
 import com.application.util.JwtUtils;
 
@@ -61,14 +61,11 @@ public class AdminController
 		}
 
 		String token = jwtUtils.generateToken(admin.getEmail());
-		AuthResponse response = new AuthResponse(
+		AdminAuthResponse response = new AdminAuthResponse(
 			token,
 			admin.getEmail(),
 			admin.getAdminname(),
-			"admin",
-			null,
-			null,
-			null
+			"admin"
 		);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
