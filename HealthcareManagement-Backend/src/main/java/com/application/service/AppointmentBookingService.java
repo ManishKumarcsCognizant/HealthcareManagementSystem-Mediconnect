@@ -43,9 +43,14 @@ public class AppointmentBookingService
 		return (List<Slots>)slotBookingRepository.findAll();
 	}
 	
-	public Appointments	addNewAppointment(Appointments appointment)
+	public Appointments addNewAppointment(Appointments appointment)
 	{
 		return appointmentsRepository.save(appointment);
+	}
+
+	public Appointments findAppointmentById(int id)
+	{
+		return appointmentsRepository.findById(id).orElse(null);
 	}
 	
 	public int bookAMSlot(String doctorname, String date)
@@ -64,6 +69,32 @@ public class AppointmentBookingService
 	{
 		appointmentsRepository.updatePmstatus(doctorname, date);
 		return 1;
+	}
+
+	/** Mark slot as PENDING while awaiting doctor approval */
+	public void setPendingAMSlot(String doctorname, String date) {
+		appointmentsRepository.setPendingAmstatus(doctorname, date);
+	}
+
+	public void setPendingNoonSlot(String doctorname, String date) {
+		appointmentsRepository.setPendingNoonstatus(doctorname, date);
+	}
+
+	public void setPendingPMSlot(String doctorname, String date) {
+		appointmentsRepository.setPendingPmstatus(doctorname, date);
+	}
+
+	/** Restore slot to AVAILABLE when doctor rejects */
+	public void restoreAMSlot(String doctorname, String date) {
+		appointmentsRepository.restoreAmstatus(doctorname, date);
+	}
+
+	public void restoreNoonSlot(String doctorname, String date) {
+		appointmentsRepository.restoreNoonstatus(doctorname, date);
+	}
+
+	public void restorePMSlot(String doctorname, String date) {
+		appointmentsRepository.restorePmstatus(doctorname, date);
 	}
 	
 	public List<Appointments> findPatientByEmail(String email)

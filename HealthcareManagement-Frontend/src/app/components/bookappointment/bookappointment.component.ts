@@ -107,6 +107,7 @@ export class BookappointmentComponent implements OnInit {
   }
 
   // Handles 'unbooked', 'Available', 'available' — all mean the slot is free
+  // 'pending' means another user has booked and is awaiting doctor approval — treat as unavailable
   isSlotAvailable(status: string): boolean {
     const s = (status || '').toLowerCase().trim();
     return s === 'unbooked' || s === 'available';

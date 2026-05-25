@@ -35,21 +35,24 @@
           <td>
             <span class="slot-pill noslot" *ngIf="doctor.amslot === 'empty'">No Slot</span>
             <span class="slot-pill booked" *ngIf="doctor.amstatus?.toLowerCase() === 'booked'">Booked</span>
-            <span class="slot-pill available" *ngIf="doctor.amslot !== 'empty' && doctor.amstatus?.toLowerCase() !== 'booked'">Available</span>
+            <span class="slot-pill pending" *ngIf="doctor.amslot !== 'empty' && doctor.amstatus?.toLowerCase() === 'pending'"><i class="fa fa-clock-o"></i> Pending</span>
+            <span class="slot-pill available" *ngIf="doctor.amslot !== 'empty' && doctor.amstatus?.toLowerCase() !== 'booked' && doctor.amstatus?.toLowerCase() !== 'pending'">Available</span>
           </td>
 
           <!-- Noon slot -->
           <td>
             <span class="slot-pill noslot" *ngIf="doctor.noonslot === 'empty'">No Slot</span>
             <span class="slot-pill booked" *ngIf="doctor.noonstatus?.toLowerCase() === 'booked'">Booked</span>
-            <span class="slot-pill available" *ngIf="doctor.noonslot !== 'empty' && doctor.noonstatus?.toLowerCase() !== 'booked'">Available</span>
+            <span class="slot-pill pending" *ngIf="doctor.noonslot !== 'empty' && doctor.noonstatus?.toLowerCase() === 'pending'"><i class="fa fa-clock-o"></i> Pending</span>
+            <span class="slot-pill available" *ngIf="doctor.noonslot !== 'empty' && doctor.noonstatus?.toLowerCase() !== 'booked' && doctor.noonstatus?.toLowerCase() !== 'pending'">Available</span>
           </td>
 
           <!-- PM slot -->
           <td>
             <span class="slot-pill noslot" *ngIf="doctor.pmslot === 'empty'">No Slot</span>
             <span class="slot-pill booked" *ngIf="doctor.pmstatus?.toLowerCase() === 'booked'">Booked</span>
-            <span class="slot-pill available" *ngIf="doctor.pmslot !== 'empty' && doctor.pmstatus?.toLowerCase() !== 'booked'">Available</span>
+            <span class="slot-pill pending" *ngIf="doctor.pmslot !== 'empty' && doctor.pmstatus?.toLowerCase() === 'pending'"><i class="fa fa-clock-o"></i> Pending</span>
+            <span class="slot-pill available" *ngIf="doctor.pmslot !== 'empty' && doctor.pmstatus?.toLowerCase() !== 'booked' && doctor.pmstatus?.toLowerCase() !== 'pending'">Available</span>
           </td>
 
         </tr>

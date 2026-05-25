@@ -75,8 +75,8 @@
             <span class="status-pill rejected" *ngIf="patient.appointmentstatus === 'reject'">
               <i class="fa fa-times"></i> Rejected
             </span>
-            <span class="status-pill pending" *ngIf="patient.appointmentstatus === 'false'">
-              <i class="fa fa-clock-o"></i> Pending
+            <span class="status-pill pending" *ngIf="patient.appointmentstatus === 'pending' || patient.appointmentstatus === 'false'">
+              <i class="fa fa-clock-o"></i> Awaiting Approval
             </span>
           </td>
 

@@ -76,7 +76,7 @@
               <td>{{patient.problem}}</td>
               <td>
                 <span class="badge-active" *ngIf="patient.appointmentstatus === 'accept'"><i class="fa fa-check-circle"></i>&nbsp;Accepted</span>
-                <span class="badge-pending" *ngIf="patient.appointmentstatus === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Pending</span>
+                <span class="badge-pending" *ngIf="patient.appointmentstatus === 'pending' || patient.appointmentstatus === 'false'"><i class="fa fa-clock-o"></i>&nbsp;Awaiting Approval</span>
                 <span class="badge-inactive" *ngIf="patient.appointmentstatus === 'reject'"><i class="fa fa-times-circle"></i>&nbsp;Rejected</span>
               </td>
               <td>

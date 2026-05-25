@@ -31,6 +31,38 @@ public interface AppointmentsRepository extends CrudRepository<Appointments,Inte
 	@Query(value = "update slots set pmstatus = 'booked' where doctorname = ?1 and date = ?2", nativeQuery = true)
 	public void updatePmstatus(String doctorname, String date);
 
+	// ── Pending: slot is held while awaiting doctor approval ────────────────
+	@Transactional
+	@Modifying
+	@Query(value = "update slots set amstatus = 'pending' where doctorname = ?1 and date = ?2", nativeQuery = true)
+	public void setPendingAmstatus(String doctorname, String date);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update slots set noonstatus = 'pending' where doctorname = ?1 and date = ?2", nativeQuery = true)
+	public void setPendingNoonstatus(String doctorname, String date);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update slots set pmstatus = 'pending' where doctorname = ?1 and date = ?2", nativeQuery = true)
+	public void setPendingPmstatus(String doctorname, String date);
+
+	// ── Restore: free slot back to available when doctor rejects ────────────
+	@Transactional
+	@Modifying
+	@Query(value = "update slots set amstatus = 'unbooked' where doctorname = ?1 and date = ?2", nativeQuery = true)
+	public void restoreAmstatus(String doctorname, String date);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update slots set noonstatus = 'unbooked' where doctorname = ?1 and date = ?2", nativeQuery = true)
+	public void restoreNoonstatus(String doctorname, String date);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update slots set pmstatus = 'unbooked' where doctorname = ?1 and date = ?2", nativeQuery = true)
+	public void restorePmstatus(String doctorname, String date);
+
 	@Transactional
 	@Modifying
 	@Query(value = "update appointments set patientid = ?1 where doctorname = ?2 and patientname = ?3 and date = ?4", nativeQuery = true)

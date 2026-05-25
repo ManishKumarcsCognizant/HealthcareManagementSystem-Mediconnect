@@ -179,7 +179,28 @@ public class DoctorController
 	@PutMapping("/updateAppointmentStatus/{id}/{status}")
 	public ResponseEntity<String> updateAppointmentStatus(@PathVariable int id, @PathVariable String status) throws Exception
 	{
+		// Update the appointment status in the appointments table
 		appointmentBookingService.updateAppointmentStatus(id, status);
+
+		// Fetch the appointment to determine which slot to update in the slots table
+		Appointments appt = appointmentBookingService.findAppointmentById(id);
+		if (appt != null) {
+			String doctorname = appt.getDoctorname();
+			String date       = appt.getDate();
+			String slot       = appt.getSlot();
+
+			if ("accept".equalsIgnoreCase(status)) {
+				// Doctor approved — mark slot as fully BOOKED
+				if ("AM slot".equalsIgnoreCase(slot))   appointmentBookingService.bookAMSlot(doctorname, date);
+				if ("Noon slot".equalsIgnoreCase(slot)) appointmentBookingService.bookNoonSlot(doctorname, date);
+				if ("PM slot".equalsIgnoreCase(slot))   appointmentBookingService.bookPMSlot(doctorname, date);
+			} else if ("reject".equalsIgnoreCase(status)) {
+				// Doctor rejected — free the slot back to AVAILABLE for other users
+				if ("AM slot".equalsIgnoreCase(slot))   appointmentBookingService.restoreAMSlot(doctorname, date);
+				if ("Noon slot".equalsIgnoreCase(slot)) appointmentBookingService.restoreNoonSlot(doctorname, date);
+				if ("PM slot".equalsIgnoreCase(slot))   appointmentBookingService.restorePMSlot(doctorname, date);
+			}
+		}
 		return new ResponseEntity<>("Status updated to " + status, HttpStatus.OK);
 	}
 

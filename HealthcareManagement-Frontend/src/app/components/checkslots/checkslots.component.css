@@ -96,6 +96,7 @@
 }
 .slot-pill.available { background: #e8f5e9; color: #2e7d32; }
 .slot-pill.booked    { background: #fce4ec; color: #c62828; }
+.slot-pill.pending   { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
 .slot-pill.noslot    { background: #f3f4f6; color: #6b7280; }
 
 /* ── Empty state ───────────────────────────────────── */

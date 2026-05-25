@@ -115,7 +115,7 @@ public class UserController
 	}
 	
 	@PostMapping("/bookNewAppointment")
-	public ResponseEntity<Appointments> addNewAppointment(@RequestBody Appointments appointment) throws Exception
+	public synchronized ResponseEntity<Appointments> addNewAppointment(@RequestBody Appointments appointment) throws Exception
 	{
 		String[] dateArr = appointment.getDate().split("-");
 		appointment.setDate(""+dateArr[0]+"-"+dateArr[1]+"-"+dateArr[2]);
@@ -124,7 +124,7 @@ public class UserController
 		
 		List<Slots> availableSLots = appointmentBookingService.getSlotList();
 		List<String> dates = new ArrayList<>();
-		String message = "No slots available !!! Please check the slot availability and book again.";
+		String message = "This slot is no longer available. Please select a different slot.";
 		for(Slots obj : availableSLots)
 		{
 			dates.add(obj.getDate());
@@ -142,41 +142,49 @@ public class UserController
 				break;
 			}
 		}
-			if(obj.getDoctorname().equals(appointments.getDoctorname()) && obj.getDate().equals(appointments.getDate()))
+		if(obj.getDoctorname() != null && obj.getDoctorname().equals(appointments.getDoctorname()) && obj.getDate().equals(appointments.getDate()))
+		{
+			// Block if slot is already booked OR pending (held by another user awaiting approval)
+			if(appointments.getSlot().equalsIgnoreCase("AM slot") &&
+				(obj.getAmstatus().equalsIgnoreCase("booked") || obj.getAmstatus().equalsIgnoreCase("pending")))
 			{
-				if(appointments.getSlot().equalsIgnoreCase("AM slot") && obj.getAmstatus().equalsIgnoreCase("booked"))
-				{
-					throw new Exception(message);
-				}
-				if(appointments.getSlot().equalsIgnoreCase("Pm slot") && obj.getPmstatus().equalsIgnoreCase("booked"))
-				{
-					throw new Exception(message);
-				}
-				if(appointments.getSlot().equalsIgnoreCase("Noon slot") && obj.getNoonstatus().equalsIgnoreCase("booked"))
-				{
-					throw new Exception(message);
-				}
+				throw new Exception(message);
 			}
-			else
+			if(appointments.getSlot().equalsIgnoreCase("Pm slot") &&
+				(obj.getPmstatus().equalsIgnoreCase("booked") || obj.getPmstatus().equalsIgnoreCase("pending")))
 			{
-				throw new Exception("The Doctor have no slots on that date !!! Please check the slot availability and book again.");
+				throw new Exception(message);
 			}
+			if(appointments.getSlot().equalsIgnoreCase("Noon slot") &&
+				(obj.getNoonstatus().equalsIgnoreCase("booked") || obj.getNoonstatus().equalsIgnoreCase("pending")))
+			{
+				throw new Exception(message);
+			}
+		}
+		else
+		{
+			throw new Exception("The Doctor have no slots on that date !!! Please check the slot availability and book again.");
+		}
+
+		// Set appointment status to 'pending' — awaiting doctor approval
+		appointment.setAppointmentstatus("pending");
 		appointments = appointmentBookingService.addNewAppointment(appointment);
 		
 		String patientID = getPatientID();
 		appointmentBookingService.updatePatientId(patientID,appointment.getDoctorname(),appointment.getPatientname(),appointment.getDate());
 		
-		if(appointment.getSlot().equalsIgnoreCase("Pm slot") && !obj.getPmstatus().equalsIgnoreCase("booked"))
+		// Mark slot as PENDING (not booked) — slot becomes booked only after doctor approves
+		if(appointment.getSlot().equalsIgnoreCase("Pm slot"))
 		{
-			appointmentBookingService.bookPMSlot(appointment.getDoctorname(),appointment.getDate());
+			appointmentBookingService.setPendingPMSlot(appointment.getDoctorname(), appointment.getDate());
 		}
-		if(appointment.getSlot().equalsIgnoreCase("Am slot") && !obj.getAmstatus().equalsIgnoreCase("booked"))
+		if(appointment.getSlot().equalsIgnoreCase("Am slot"))
 		{
-			appointmentBookingService.bookAMSlot(appointment.getDoctorname(),appointment.getDate());
+			appointmentBookingService.setPendingAMSlot(appointment.getDoctorname(), appointment.getDate());
 		}
-		if(appointment.getSlot().equalsIgnoreCase("Noon slot") && !obj.getNoonstatus().equalsIgnoreCase("booked"))
+		if(appointment.getSlot().equalsIgnoreCase("Noon slot"))
 		{
-			appointmentBookingService.bookNoonSlot(appointment.getDoctorname(),appointment.getDate());
+			appointmentBookingService.setPendingNoonSlot(appointment.getDoctorname(), appointment.getDate());
 		}
 		return new ResponseEntity<Appointments>(appointments, HttpStatus.OK);
 	}
