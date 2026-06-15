@@ -6,150 +6,148 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Appointments 
+public class Appointments
 {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private String patientid;
-	private String patientname;
-	private String email;
-	private String doctorname;
-	private String specialization;
-	private String date;
-	private String age;
-	private String gender;
-	private String problem;
-	private String slot;
-	private String appointmentstatus;
-	private String treatmentstatus;
-	
-	public Appointments() 
-	{
-		super();
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Fixed: Uses MySQL AUTO_INCREMENT directly
+    private int id;
+    private String patientid;
+    private String patientname;
+    private String email;
+    private String doctorname;
+    private String specialization;
+    private String date;
+    private String age;
+    private String gender;
+    private String problem;
+    private String slot;
+    private String appointmentstatus;
+    private String treatmentstatus;
 
-	public Appointments(int id,String patientid, String patientname, String email, String doctorname, String specialization, String date, String age, String gender, String problem, String slot, String appointmentstatus, String treatmentstatus) 
-	{
-		super();
-		this.id = id;
-		this.patientid = patientid;
-		this.patientname = patientname;
-		this.email = email;
-		this.doctorname = doctorname;
-		this.specialization = specialization;
-		this.date = date;
-		this.age = age;
-		this.gender = gender;
-		this.problem = problem;
-		this.slot = slot;
-		this.appointmentstatus = appointmentstatus;
-		this.treatmentstatus = treatmentstatus;
-	}
+    public Appointments()
+    {
+        super();
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Appointments(int id, String patientid, String patientname, String email, String doctorname, String specialization, String date, String age, String gender, String problem, String slot, String appointmentstatus, String treatmentstatus)
+    {
+        super();
+        this.id = id;
+        this.patientid = patientid;
+        this.patientname = patientname;
+        this.email = email;
+        this.doctorname = doctorname;
+        this.specialization = specialization;
+        this.date = date;
+        this.age = age;
+        this.gender = gender;
+        this.problem = problem;
+        this.slot = slot;
+        this.appointmentstatus = appointmentstatus;
+        this.treatmentstatus = treatmentstatus;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public String getPatientid() {
-		return patientid;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setPatientid(String patientid) {
-		this.patientid = patientid;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getPatientname() {
-		return patientname;
-	}
+    public String getPatientid() {
+        return patientid;
+    }
 
-	public void setPatientname(String patientname) {
-		this.patientname = patientname;
-	}
+    public void setPatientid(String patientid) {
+        this.patientid = patientid;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getPatientname() {
+        return patientname;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setPatientname(String patientname) {
+        this.patientname = patientname;
+    }
 
-	public String getDoctorname() {
-		return doctorname;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setDoctorname(String doctorname) {
-		this.doctorname = doctorname;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getSpecialization() {
-		return specialization;
-	}
+    public String getDoctorname() {
+        return doctorname;
+    }
 
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
-	}
+    public void setDoctorname(String doctorname) {
+        this.doctorname = doctorname;
+    }
 
-	public String getDate() {
-		return date;
-	}
+    public String getSpecialization() {
+        return specialization;
+    }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
 
-	public String getAge() {
-		return age;
-	}
+    public String getDate() {
+        return date;
+    }
 
-	public void setAge(String age) {
-		this.age = age;
-	}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public String getAge() {
+        return age;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public void setAge(String age) {
+        this.age = age;
+    }
 
-	public String getProblem() {
-		return problem;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public void setProblem(String problem) {
-		this.problem = problem;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public String getSlot() {
-		return slot;
-	}
+    public String getProblem() {
+        return problem;
+    }
 
-	public void setSlot(String slot) {
-		this.slot = slot;
-	}
+    public void setProblem(String problem) {
+        this.problem = problem;
+    }
 
-	public String getAppointmentstatus() {
-		return appointmentstatus;
-	}
+    public String getSlot() {
+        return slot;
+    }
 
-	public void setAppointmentstatus(String appointmentstatus) {
-		this.appointmentstatus = appointmentstatus;
-	}
+    public void setSlot(String slot) {
+        this.slot = slot;
+    }
 
-	public String getTreatmentstatus() {
-		return treatmentstatus;
-	}
+    public String getAppointmentstatus() {
+        return appointmentstatus;
+    }
 
-	public void setTreatmentstatus(String treatmentstatus) {
-		this.treatmentstatus = treatmentstatus;
-	}
+    public void setAppointmentstatus(String appointmentstatus) {
+        this.appointmentstatus = appointmentstatus;
+    }
 
+    public String getTreatmentstatus() {
+        return treatmentstatus;
+    }
+
+    public void setTreatmentstatus(String treatmentstatus) {
+        this.treatmentstatus = treatmentstatus;
+    }
 }
-

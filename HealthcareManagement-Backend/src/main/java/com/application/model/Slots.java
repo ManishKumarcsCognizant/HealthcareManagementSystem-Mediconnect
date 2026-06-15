@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Slots 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String email;
 	private String doctorname;
