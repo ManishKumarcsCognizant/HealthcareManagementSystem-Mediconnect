@@ -19,6 +19,7 @@ import com.application.model.Slots;
 import com.application.model.User;
 import com.application.service.DoctorRegistrationService;
 import com.application.service.UserRegistrationService;
+import com.application.service.AdminService;
 import com.application.util.JwtUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -36,6 +37,9 @@ public class RegistrationController
 
 	@Autowired
 	private JwtUtils jwtUtils;
+    
+	@Autowired
+	private AdminService adminService;
 	
 	@PostMapping({"/registerUser", "/registeruser"})
 	public ResponseEntity<?> registerUser(@RequestBody User user)
@@ -46,10 +50,19 @@ public class RegistrationController
 			}
 			if(currEmail != null && !"".equals(currEmail))
 			{
-				User existing = userRegisterService.fetchUserByEmail(currEmail);
-				if(existing != null)
+				// Check across all account types: user, doctor, admin
+				User existingUser = userRegisterService.fetchUserByEmail(currEmail);
+				if(existingUser != null)
 				{
 					return new ResponseEntity<>("User with "+currEmail+" already exists !!!", HttpStatus.CONFLICT);
+				}
+				if(doctorRegisterService.fetchDoctorByEmail(currEmail) != null)
+				{
+					return new ResponseEntity<>("An account with "+currEmail+" already exists as a doctor. Please use a different email.", HttpStatus.CONFLICT);
+				}
+				if(adminService.findByEmail(currEmail) != null)
+				{
+					return new ResponseEntity<>("An admin account with "+currEmail+" already exists.", HttpStatus.CONFLICT);
 				}
 			}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -79,10 +92,19 @@ public class RegistrationController
 			}
 			if(currEmail != null && !"".equals(currEmail))
 			{
-				Doctor existing = doctorRegisterService.fetchDoctorByEmail(currEmail);
-				if(existing != null)
+				// Check across all account types: doctor, user, admin
+				Doctor existingDoctor = doctorRegisterService.fetchDoctorByEmail(currEmail);
+				if(existingDoctor != null)
 				{
 					return new ResponseEntity<>("Doctor with "+currEmail+" already exists !!!", HttpStatus.CONFLICT);
+				}
+				if(userRegisterService.fetchUserByEmail(currEmail) != null)
+				{
+					return new ResponseEntity<>("An account with "+currEmail+" already exists as a user. Please use a different email.", HttpStatus.CONFLICT);
+				}
+				if(adminService.findByEmail(currEmail) != null)
+				{
+					return new ResponseEntity<>("An admin account with "+currEmail+" already exists.", HttpStatus.CONFLICT);
 				}
 			}
 		doctor.setPassword(passwordEncoder.encode(doctor.getPassword()));

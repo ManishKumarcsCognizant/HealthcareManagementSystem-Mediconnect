@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,26 +52,22 @@ public class LoginController
     @PostMapping("/authenticate")
     public ResponseEntity<String> generateToken(@RequestBody AuthRequest authRequest) throws Exception 
     {
-        try 
-        {
-        	System.out.println(authRequest.getEmail());
-        	System.out.println(authRequest.getPassword());
-        	List<User> users = userRegisterService.getAllUsers();
-        	String currentEmail = "";
-    		for(User obj:users)
-    		{
-    			if(obj.getEmail().equalsIgnoreCase(authRequest.getEmail()))
-    			{
-    				currentEmail = obj.getUsername();
-    			}
-    		}
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(currentEmail, authRequest.getPassword()));
-        } 
-        catch (Exception ex) 
-        {
-            throw new Exception("Invalid Username/password");
-        }
-        return new ResponseEntity<String>(jwtUtil.generateToken(authRequest.getEmail()), HttpStatus.OK);
+		try {
+			System.out.println(authRequest.getEmail());
+			System.out.println(authRequest.getPassword());
+			List<User> users = userRegisterService.getAllUsers();
+			String currentEmail = "";
+			for (User obj : users) {
+				if (obj.getEmail().equalsIgnoreCase(authRequest.getEmail())) {
+					currentEmail = obj.getUsername();
+				}
+			}
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(currentEmail, authRequest.getPassword()));
+			return new ResponseEntity<String>(jwtUtil.generateToken(authRequest.getEmail()), HttpStatus.OK);
+		} catch (AuthenticationException ex) {
+			// Return a user-friendly message without technical details
+			return new ResponseEntity<String>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
+		}
     }
 	
 	@PostMapping("/loginuser")
@@ -90,7 +87,7 @@ public class LoginController
 		}
 		if(userObj == null)
 		{
-			throw new Exception("User does not exists!!! Please enter valid credentials...");
+			return new ResponseEntity<>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
 		}
 
 		String token = jwtUtil.generateToken(userObj.getEmail());
@@ -125,7 +122,7 @@ public class LoginController
 		}
 		if(doctorObj == null)
 		{
-			throw new Exception("User does not exists!!! Please enter valid credentials...");
+			return new ResponseEntity<>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
 		}
 
 		String token = jwtUtil.generateToken(doctorObj.getEmail());
