@@ -49,17 +49,38 @@
             <td>{{doctor.previoushospital}}</td>
             <td>{{doctor.mobile}}</td>
             <td>
-              <div *ngIf="currRole === 'admin' && doctor.status === 'false'" class="action-btns">
-                <button (click)="acceptRequest(doctor.email)"
-                        [disabled]="actionInProgress[doctor.email]"
-                        class="btn-accept">
-                  {{ actionInProgress[doctor.email] ? '...' : 'Accept' }}
-                </button>
-                <button (click)="rejectRequest(doctor.email)"
-                        [disabled]="actionInProgress[doctor.email]"
-                        class="btn-reject">
-                  {{ actionInProgress[doctor.email] ? '...' : 'Reject' }}
-                </button>
+              <div *ngIf="currRole === 'admin'" class="action-btns">
+                <!-- Pending: show both Accept and Reject -->
+                <ng-container *ngIf="doctor.status === 'false'">
+                  <button (click)="acceptRequest(doctor.email)"
+                          [disabled]="actionInProgress[doctor.email]"
+                          class="btn-accept">
+                    {{ actionInProgress[doctor.email] ? '...' : 'Accept' }}
+                  </button>
+                  <button (click)="rejectRequest(doctor.email)"
+                          [disabled]="actionInProgress[doctor.email]"
+                          class="btn-reject">
+                    {{ actionInProgress[doctor.email] ? '...' : 'Reject' }}
+                  </button>
+                </ng-container>
+
+                <!-- If already accepted, allow admin to Reject -->
+                <ng-container *ngIf="doctor.status === 'accept'">
+                  <button (click)="rejectRequest(doctor.email)"
+                          [disabled]="actionInProgress[doctor.email]"
+                          class="btn-reject">
+                    {{ actionInProgress[doctor.email] ? '...' : 'Reject' }}
+                  </button>
+                </ng-container>
+
+                <!-- If rejected, allow admin to Accept -->
+                <ng-container *ngIf="doctor.status === 'reject'">
+                  <button (click)="acceptRequest(doctor.email)"
+                          [disabled]="actionInProgress[doctor.email]"
+                          class="btn-accept">
+                    {{ actionInProgress[doctor.email] ? '...' : 'Accept' }}
+                  </button>
+                </ng-container>
               </div>
               <span *ngIf="doctor.status === 'accept'" class="status-pill accepted">&#10003; Accepted</span>
               <span *ngIf="doctor.status === 'reject'" class="status-pill rejected">&#10007; Rejected</span>

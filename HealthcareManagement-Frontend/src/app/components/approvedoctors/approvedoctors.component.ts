@@ -41,11 +41,20 @@ export class ApprovedoctorsComponent implements OnInit {
   }
 
   rejectRequest(curremail: string): void {
+    const doc = this.doctors.find(d => d.email === curremail);
+    // If the doctor is already accepted, ask for confirmation before rejecting
+    if (doc && doc.status === 'accept') {
+      const confirmed = window.confirm(`Doctor ${doc.doctorname} is already accepted.\nAre you sure you want to reject this doctor? This will revoke their access.`);
+      if (!confirmed) {
+        return;
+      }
+    }
+
     this.actionInProgress[curremail] = true;
     this._service.rejectDoctorApproval(curremail).subscribe({
       next: () => {
-        const doc = this.doctors.find(d => d.email === curremail);
-        if (doc) doc.status = 'reject';
+        const d = this.doctors.find(x => x.email === curremail);
+        if (d) d.status = 'reject';
         this.actionInProgress[curremail] = false;
       },
       error: () => { this.actionInProgress[curremail] = false; }

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,8 +67,8 @@ public class LoginController
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(currentEmail, authRequest.getPassword()));
 			return new ResponseEntity<String>(jwtUtil.generateToken(authRequest.getEmail()), HttpStatus.OK);
 		} catch (AuthenticationException ex) {
-			// Return a user-friendly message without technical details
-			return new ResponseEntity<String>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
+			// Re-throw as BadCredentialsException so the global handler maps it
+			throw new BadCredentialsException("Bad credentials");
 		}
     }
 	
@@ -87,7 +89,7 @@ public class LoginController
 		}
 		if(userObj == null)
 		{
-			return new ResponseEntity<>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
+			throw new UsernameNotFoundException("User not found");
 		}
 
 		String token = jwtUtil.generateToken(userObj.getEmail());
@@ -122,7 +124,7 @@ public class LoginController
 		}
 		if(doctorObj == null)
 		{
-			return new ResponseEntity<>("Incorrect username or password", HttpStatus.UNAUTHORIZED);
+			throw new UsernameNotFoundException("Doctor not found");
 		}
 
 		String token = jwtUtil.generateToken(doctorObj.getEmail());
