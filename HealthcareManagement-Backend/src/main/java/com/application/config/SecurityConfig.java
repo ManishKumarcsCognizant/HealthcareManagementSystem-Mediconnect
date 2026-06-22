@@ -76,7 +76,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                 "/userlist", "/patientlist",
                 "/acceptstatus/**", "/rejectstatus/**",
                 "/acceptpatient/**", "/rejectpatient/**",
-                "/addDoctor", "/approvedoctors"
+                "/addDoctor", "/approvedoctors","/admindashboard"
             ).hasRole("ADMIN")
             .requestMatchers(
                 "/addBookingSlots", "/updateAppointmentStatus/**",

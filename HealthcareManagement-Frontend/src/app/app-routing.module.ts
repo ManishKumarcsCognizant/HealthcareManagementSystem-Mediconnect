@@ -75,8 +75,6 @@ const routes: Routes = [
 
   // ── AUTHENTICATED (any role) ─────────────────────────────────────────────
   {path:'userdashboard',component:UserdashboardComponent,canActivate:[RouterGuard]},
-  {path:'admindashboard',component:AdmindashboardComponent,canActivate:[RouterGuard]},
-  {path:'doctordashboard',component:DoctordashboardComponent,canActivate:[RouterGuard]},
   {path:'doctorlist',component:DoctorlistComponent,canActivate:[RouterGuard]},
   {path:'userlist',component:UserlistComponent,canActivate:[RouterGuard]},
   {path:'patientlist',component:PatientlistComponent,canActivate:[RouterGuard]},
@@ -84,10 +82,12 @@ const routes: Routes = [
 
   // ── ADMIN ONLY ────────────────────────────────────────────────────────────
   {path:'addDoctor',component:AddingdoctorComponent,canActivate:[AdminGuard]},
+  {path:'admindashboard',component:AdmindashboardComponent,canActivate:[AdminGuard]},
   {path:'approvedoctors',component:ApprovedoctorsComponent,canActivate:[AdminGuard]},
 
   // ── DOCTOR ONLY ───────────────────────────────────────────────────────────
   {path:'appointments',component:AppointmentsComponent,canActivate:[DoctorGuard]},
+  {path:'doctordashboard',component:DoctordashboardComponent,canActivate:[DoctorGuard]},
   {path:'scheduleslots',component:ScheduleslotsComponent,canActivate:[DoctorGuard]},
   {path:'addprescription',component:AddprescriptionComponent,canActivate:[DoctorGuard]},
   {path:'editdoctorprofile',component:DoctorprofileComponent,canActivate:[DoctorGuard]},
